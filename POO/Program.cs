@@ -1,19 +1,13 @@
 ﻿using Tarea1_8Reinas;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        Tablero tablero = new Tablero();
 
-        if (tablero.Resolver())
-        {
-            Console.WriteLine("Solución encontrada:");
-            tablero.MostrarTablero();
-        }
-        else
-        {
-            Console.WriteLine("No se encontró una solución.");
-        }
-    }
-}
+Tablero tablero = new Tablero();
+Reina reinas_8 = new Reina();
+
+//solucion usando arrays como tablero
+reinas_8.colocarReina(0);
+
+//primera solucion haciendo toda la implementacion en la clase tablero
+tablero.Resolver();
+tablero.MostrarTablero();
+
