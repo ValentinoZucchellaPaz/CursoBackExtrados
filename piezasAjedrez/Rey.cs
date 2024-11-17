@@ -6,19 +6,21 @@ using System.Threading.Tasks;
 
 namespace piezasAjedrez
 {
-    public class Torre : Pieza
+    public class Rey: Pieza
     {
-        public override char InicialPieza => 'T';
+        public override char InicialPieza => 'K';
+
         public override bool EsValido(int col, int[] tablero)
         {
-            //no debe estar en la misma col (en la misma fila no se puede x naturaleza de tablero)
+            // si esta en una casilla inmediata no es valido
             for (int i = 0; i < col; i++)
             {
-                if (tablero[i] == tablero[col])
+                if (Math.Abs(col - i) <= 1 || Math.Abs(tablero[col] - tablero[i]) <= 1)
                 {
                     return false;
                 }
             }
+
             return true;
         }
     }

@@ -8,16 +8,17 @@ namespace piezasAjedrez
 {
     public class Caballo : Pieza
     {
-        public Caballo(int tamaño_de_tablero = 8, char inicialPieza = 'H') : base(tamaño_de_tablero, inicialPieza)
+        public override char InicialPieza => 'H';
+        public override bool EsValido(int col, int[] tablero)
         {
-        }
-
-        public override bool esValido(int col)
-        {
+            //caballo come dos hacia un sentido uno para el otro
+            //caso1: dos hacia los costados uno hacia arriba
+            //caso2: dos hacia arriba uno hacia los costados
             for (int i = 0; i < col; i++)
             {
-                //chequea si el caballo puede comer hacia abajo izq o der
-                if (Math.Abs(tablero[i] - tablero[col]) == Math.Abs(i - col))
+                int dif_x = Math.Abs(col - i);
+                int dif_y = Math.Abs(tablero[col] - tablero[i]);
+                if ((dif_x == 2 && dif_y == 1) || (dif_x == 1 && dif_y == 2))
                 {
                     return false;
                 }

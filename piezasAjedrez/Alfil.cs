@@ -8,15 +8,13 @@ namespace piezasAjedrez
 {
     public class Alfil : Pieza
     {
-        public Alfil(int tamaño_de_tablero = 8, char inicialPieza = 'B') : base(tamaño_de_tablero, inicialPieza)
-        {
-        }
+        public override char InicialPieza => 'B';
 
-        public override bool esValido(int col)
+        public override bool EsValido(int col, int[] tablero)
         {
             for (int i = 0; i < col; i++)
             {
-                //chequea si el alfil esta en una diagonal
+                // verifico que no haya piezas en las diagonales
                 if (Math.Abs(tablero[i] - tablero[col]) == Math.Abs(i - col))
                 {
                     return false;

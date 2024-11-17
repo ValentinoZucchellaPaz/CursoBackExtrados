@@ -8,17 +8,15 @@ namespace piezasAjedrez
 {
     public class Reina: Pieza
     {
+        public override char InicialPieza => 'Q';
 
-        public Reina(int tamaño_de_tablero=8, char inicialPieza='Q') : base(tamaño_de_tablero, inicialPieza)
+        public override bool EsValido(int col, int[] tablero)
         {
-        }
-
-        public override bool esValido(int col)
-        {
+            //no debe estar en una diagonal ni en la misma col (en la misma fila no se puede x naturaleza de tablero)
             for (int i = 0; i < col; i++)
             {
-                //chequea si la reina esta en la misma fila o en una diagonal
-                if (tablero[i] == tablero[col] || Math.Abs(tablero[i] - tablero[col]) == Math.Abs(i-col))
+                if (tablero[i] == tablero[col] ||
+                    Math.Abs(tablero[i] - tablero[col]) == Math.Abs(i - col))
                 {
                     return false;
                 }

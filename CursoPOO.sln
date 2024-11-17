@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "piezasAjedrez", "piezasAjed
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarea1", "Tarea1\Tarea1.csproj", "{D39F9736-9107-46A9-BF84-C334D2F3D187}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarea 2", "Tarea 2\Tarea 2.csproj", "{8D657615-C4FA-4C1D-BA71-34F7C875CE2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarea2", "Tarea2\Tarea2.csproj", "{EEA9F582-B837-4217-914E-2383776991B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{D39F9736-9107-46A9-BF84-C334D2F3D187}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D39F9736-9107-46A9-BF84-C334D2F3D187}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D39F9736-9107-46A9-BF84-C334D2F3D187}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D657615-C4FA-4C1D-BA71-34F7C875CE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D657615-C4FA-4C1D-BA71-34F7C875CE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D657615-C4FA-4C1D-BA71-34F7C875CE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D657615-C4FA-4C1D-BA71-34F7C875CE2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEA9F582-B837-4217-914E-2383776991B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA9F582-B837-4217-914E-2383776991B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA9F582-B837-4217-914E-2383776991B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA9F582-B837-4217-914E-2383776991B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
