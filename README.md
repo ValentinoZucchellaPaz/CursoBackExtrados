@@ -11,3 +11,12 @@ Se tiene una clase abstracta `Pieza` con un metodo `EsValido(int col, int[] tabl
 La clase `Tablero` se le da un tamanio N y una pieza con la cual llenar el tablero. La clase implementa el metodo recursivo `ColocarPieza(int col)` y cuando encuentra una solucion se detiene e imprime el tablero.  
 Por defecto se comienza por la primer columna, este el output de la funcion  
 ![Tarea2 output](/assets/Tarea%202%20consola.png)  
+  
+## Tarea 3  
+Una aplicacion de consola simple CRUD que se conecta a una base de datos y puede crear, leer, actualizar y borrar (borrado lógico) usuarios.  
+La conección a la base de datos se hace mediante un `DAO`, mientras que la lógica de la aplicacion de consola es manejada por `Program.cs` y `ProgramHandler.cs` el cual hace las llamadas a las funciones del DAO para obtener y mostrar la informacion de la base de datos.  
+![Tarea3 menu](/assets/Tarea%203%20consola%20menu.png)  
+![Tarea3 crear](/assets/Tarea%203%20consola%20crear.png)  
+![Tarea3 leer](/assets/Tarea%203%20consola%20leer.png)  
+![Tarea3 actualizar](/assets/Tarea%203%20consola%20actualizar.png)  
+![Tarea3 borrar](/assets/Tarea%203%20consola%20eliminar.png)  
