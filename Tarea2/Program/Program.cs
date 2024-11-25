@@ -1,4 +1,4 @@
-﻿using piezasAjedrez;
+﻿using PiezasAjedrez;
 
 Alfil a = new Alfil();
 Reina r = new Reina();

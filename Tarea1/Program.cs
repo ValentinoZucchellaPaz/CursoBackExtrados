@@ -1,4 +1,5 @@
-﻿using Tarea1;
+﻿
+using Tarea1;
 
 Reina reina = new Reina();
 reina.colocarPieza();

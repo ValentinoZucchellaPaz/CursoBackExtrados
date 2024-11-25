@@ -1,4 +1,4 @@
-﻿namespace piezasAjedrez
+﻿namespace PiezasAjedrez
 {
     public class Peon: Pieza
     {
