@@ -63,7 +63,7 @@ namespace DAO_Entidades
             }
         }
 
-        public bool UpdateUser(int id, string name, int age, string mail)
+        public int UpdateUser(int id, string name, int age, string mail)
         {
             string verify_query = "select unsub_date from usuarios where id=@id;";
             string query = "update usuarios set name=@name, age=@age, mail=@mail where id=@id;";
@@ -73,10 +73,10 @@ namespace DAO_Entidades
                 var unsub_date_user = conn.QueryFirstOrDefault<string?>(verify_query, new { id });
                 if (unsub_date_user != null)
                 {
-                    return false;
+                    return 0;
                 }
                 var res = conn.Execute(query, new { name, age, mail, id });
-                return res > 0;
+                return res;
             }
         }
 
