@@ -17,48 +17,53 @@ namespace API.Controllers
         }
 
         [HttpGet("search/all")]
-        public List<User> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
             return _userService.GetUsers();
         }
 
         [HttpGet("search/{id}")]
-        public User? GetUser(int id)
+        [ProducesResponseType<User>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetUser(int id)
         {
-            return _userService.GetUser(id);
+            var user = _userService.GetUser(id);
+            return user == null ? 
+                NotFound(new { message = $"No se ha encontrado el usuario con id {id}", success=false })
+                : Ok(user);
         }
 
         [HttpPost("create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult CreateUser(MCreateUser request)
         {
             int id = _userService.CreateUser(request);
-            if (id ==0)
-            {
-                return BadRequest(new { message= "No se ha podido crear el usuario", success = false});
-            }
-            return Ok(new { message = $"Usuario creado exitosamente con id {id}", success = true });
+            return id == 0 ?
+                BadRequest(new { message = "No se ha podido crear el usuario", success = false })
+                : Ok(new { message = $"Usuario creado exitosamente con id {id}", success = true });
         }
 
         [HttpPost("delete")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteUser(MId request)
         {
             bool response = _userService.DeleteUser(request);
-            if (!response)
-            {
-                return BadRequest(new { message = $"No se ha encontrado ningun usuario activo con id {request.Id}", success = false });
-            }
-            return Ok(new { message = $"Usuario con id {request.Id} eliminado exitosamente", success = true });
+            return response ?
+                Ok(new { message = $"Usuario con id {request.Id} eliminado exitosamente", success = true })
+                : NotFound(new { message = $"No se ha encontrado ningun usuario activo con id {request.Id}", success = false });
         }
 
         [HttpPost("update")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult UpdateUser(MUpdateUser request)
         {
-            var response = _userService.UpdateUser(request);
-            if (!response)
-            {
-                return BadRequest(new { message = $"No se ha podido actualizar el usuario con id {request.Id}", success = false});
-            }
-            return Ok(new { message = $"Usuario con id {request.Id} actulizado correctamente", success = true });
+            bool response = _userService.UpdateUser(request);
+            return response ?
+                Ok(new { message = $"Usuario con id {request.Id} actulizado correctamente", success = true })
+                : BadRequest(new { message = $"No se ha podido actualizar el usuario con id {request.Id}", success = false});
         }
     }
 }
