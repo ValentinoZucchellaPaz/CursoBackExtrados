@@ -14,17 +14,15 @@ namespace API.Services
             _db = DAOUser.GetInstance();
         }
 
-        public bool Login(string mail, string password)
+        public User? Authenticate(string mail, string password)
         {
             var user = _db.GetUserByMail(mail);
 
-            if (user == null)
+            if (user == null || !PasswordHasher.VerifyPassword(password, user.GetPass(), user.GetSalt()))
             {
-                return false;
-            } else
-            {
-                return PasswordHasher.VerifyPassword(password,user.GetPass(), user.GetSalt());
+                return null;
             }
+            return user;
         }
 
         public List<User> GetUsers()
