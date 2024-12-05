@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\DAO&amp;Entidades\DAO&amp;Entidades.csproj" />
   </ItemGroup>
 

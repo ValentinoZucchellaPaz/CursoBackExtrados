@@ -1,14 +1,16 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace API.Services
+namespace API.Services.AuthService
 {
-    public class AuthService(string jwtKey, string jwtIssuer)
+    public class AuthService(IOptions<JwtConfig> options) : IAuthService
     {
-        private readonly string _jwtKey = jwtKey;
-        private readonly string _jwtIssuer = jwtIssuer;
+        private readonly string _jwtKey = options.Value.Secret;
+        private readonly string _jwtIssuer = options.Value.Issuer;
 
         public string GenerateJwtToken(string userId, string userMail)
         {

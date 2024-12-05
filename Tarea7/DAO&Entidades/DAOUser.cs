@@ -6,54 +6,46 @@ using DAO_Entidades.Models;
 
 namespace DAO_Entidades
 {
-    public class DAOUser
+    public class DAOUser (string connectionString): IDAOUser
     {
-        //implementacion singleton del DAOUser
-        private static DAOUser? _instance = null;
 
-        private DAOUser() { }
-        public static DAOUser GetInstance()
-        {
-            if (_instance == null)
-            {
-                _instance = new DAOUser();
-            }
-            return _instance;
-        }
-
-        //implementacion del DAO
-        private readonly string ConnectionString = "Server=localhost;Port=3306;User ID=tarea_5_user;Password=tarea_5_user;Database=tarea5";
+        private readonly string _connectionString = connectionString;
+        private readonly string queryGetAllUsers = "select * from usuarios where unsub_date is null;";
+        private readonly string queryGetUser = "select * from usuarios where id = @id and unsub_date is null;";
+        private readonly string queryCreateUser = "insert into usuarios (name, age, mail, password, salt) values (@name, @age, @mail, @password, @salt);";
+        private readonly string queryVerifyUnsub = "select unsub_date from usuarios where id=@id;";
+        private readonly string queryDeleteUser = "update usuarios set unsub_date = @date where id=@id;";
+        private readonly string queryUpdateUser = "update usuarios set name=@name, age=@age where id=@id;";
+        private readonly string queryGetActiveMails = "select mail from usuarios where mail = @mail and unsub_date is null";
+        private readonly string queryGetUserByMail = "select * from usuarios where mail = @mail and unsub_date is null";
 
         public List<User> GetAllUsers()
         {
             //trae usuarios activos
-            string query = "select * from usuarios where unsub_date is null;";
-            using (var conn = new MySqlConnection(ConnectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                var res = conn.Query<User>(query).ToList();
+                var res = conn.Query<User>(queryGetAllUsers).ToList();
                 return res;
             }
         }
 
         public User? GetUser(int id)
         {
-            string query = "select * from usuarios where id = @id and unsub_date is null;";
-            using (var conn = new MySqlConnection(ConnectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                var res = conn.QueryFirstOrDefault<User>(query, new { id });
+                var res = conn.QueryFirstOrDefault<User>(queryGetUser, new { id });
                 return res;
             }
         }
 
         public int CreateUser(string name, int age, string mail, string password, string salt)
         {
-            string query = "insert into usuarios (name, age, mail, password, salt) values (@name, @age, @mail, @password, @salt);";
-            using (var conn = new MySqlConnection(ConnectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                var res = conn.Execute(query, new { name, age, mail, password, salt });
+                var res = conn.Execute(queryCreateUser, new { name, age, mail, password, salt });
                 if (res > 0)
                 {
                     //usuario creado correctamente, recuperar su id
@@ -66,56 +58,50 @@ namespace DAO_Entidades
 
         public bool DeleteUser(int id, string date)
         {
-            string verify_query = "select unsub_date from usuarios where id=@id;";
-            string query = "update usuarios set unsub_date = @date where id=@id;";
-            using (var conn = new MySqlConnection(ConnectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                var unsub_date_user = conn.QueryFirstOrDefault<string?>(verify_query, new { id });
+                var unsub_date_user = conn.QueryFirstOrDefault<string?>(queryVerifyUnsub, new { id });
                 if (unsub_date_user != null)
                 {
                     return false;
                 }
-                var res = conn.Execute(query, new { date, id });
+                var res = conn.Execute(queryDeleteUser, new { date, id });
                 return res > 0;
             }
         }
 
         public int UpdateUser(int id, string name, int age)
         {
-            string verify_query = "select unsub_date from usuarios where id=@id;";
-            string query = "update usuarios set name=@name, age=@age where id=@id;";
-            using (var conn = new MySqlConnection(ConnectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                var unsub_date_user = conn.QueryFirstOrDefault<string?>(verify_query, new { id });
+                var unsub_date_user = conn.QueryFirstOrDefault<string?>(queryVerifyUnsub, new { id });
                 if (unsub_date_user != null)
                 {
                     return 0;
                 }
-                var res = conn.Execute(query, new { name, age, id });
+                var res = conn.Execute(queryUpdateUser, new { name, age, id });
                 return res;
             }
         }
 
         public bool IsMailInUse(string mail)
         {
-            string query = "select mail from usuarios where mail = @mail and unsub_date is null";
-            using (var conn = new MySqlConnection(ConnectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                var mail_in_use = conn.QueryFirstOrDefault<string>(query, new { mail });
+                var mail_in_use = conn.QueryFirstOrDefault<string>(queryGetActiveMails, new { mail });
                 return mail_in_use != null;
             }
         }
 
         public User? GetUserByMail(string mail)
         {
-            string query = "select * from usuarios where mail = @mail and unsub_date is null";
-            using (var conn = new MySqlConnection(ConnectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                var res = conn.QueryFirstOrDefault<User>(query, new { mail });
+                var res = conn.QueryFirstOrDefault<User>(queryGetUserByMail, new { mail });
                 return res;
             }
         }

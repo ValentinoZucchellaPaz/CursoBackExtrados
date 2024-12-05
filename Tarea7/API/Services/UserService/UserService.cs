@@ -1,18 +1,12 @@
-﻿using DAO_Entidades;
+﻿using API.Auxiliar;
+using DAO_Entidades;
 using DAO_Entidades.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 
-namespace API.Services
+namespace API.Services.UserService
 {
-    public class UserService
+    public class UserService(IDAOUser db) : IUserService
     {
-        private readonly DAOUser _db;
-
-        public UserService()
-        {
-            _db = DAOUser.GetInstance();
-        }
+        private readonly IDAOUser _db = db;
 
         public User? Authenticate(string mail, string password)
         {
