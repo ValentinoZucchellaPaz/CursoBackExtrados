@@ -1,3 +1,4 @@
+using API.Middleware;
 using API.Services.AuthService;
 using API.Services.UserService;
 using Configuration;
@@ -9,8 +10,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -37,7 +38,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("*");
+        policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
 
@@ -50,6 +51,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("Jwt"));
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

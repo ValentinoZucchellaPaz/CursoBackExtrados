@@ -46,13 +46,13 @@ namespace DAO_Entidades
             {
                 conn.Open();
                 var res = conn.Execute(queryCreateUser, new { name, age, mail, password, salt });
-                if (res > 0)
+                if (res == 0)
                 {
-                    //usuario creado correctamente, recuperar su id
-                    int user_id = conn.QuerySingle<int>("select last_insert_id();");
-                    return user_id;
+                    throw new Exception("No se ha podido crear el usuario correctamente");
                 }
-                return res;
+                //usuario creado correctamente, recuperar su id
+                int user_id = conn.QuerySingle<int>("select last_insert_id();");
+                return user_id;
             }
         }
 

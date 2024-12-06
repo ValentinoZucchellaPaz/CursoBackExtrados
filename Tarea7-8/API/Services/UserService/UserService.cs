@@ -1,6 +1,8 @@
 ﻿using API.Auxiliar;
+using API.Auxiliar.Exceptions;
 using DAO_Entidades;
 using DAO_Entidades.Models;
+using MySqlConnector;
 
 namespace API.Services.UserService
 {
@@ -36,23 +38,22 @@ namespace API.Services.UserService
             //validar edad y mail
             if (age < 14)
             {
-                return -3;
+                throw new UserAgeException("Solo se pueden registrar usuarios mayores a 14 años");
             }
             else if (!mail.Contains("@gmail.com"))
             {
-                return -2;
+                throw new InvalidMailException("Solo se pueden registar usuarios con mail Gmail (@gmail.com)");
             }
             else if (_db.IsMailInUse(mail))
             {
-                return -1;
+                throw new InvalidMailException("Este correo ya esta siendo usando otro usuario");
             }
 
             //crear contraseña hasheada
             var (hash, salt) = PasswordHasher.HashPassword(password);
 
             //crear usuario y retornar su id de creacion
-            int id = _db.CreateUser(name, age, mail, hash, salt);
-            return id;
+            return _db.CreateUser(name, age, mail, hash, salt);
         }
 
         public int UpdateUser(MUpdateUser user)
@@ -62,7 +63,7 @@ namespace API.Services.UserService
             //validar edad
             if (age < 14)
             {
-                return -1;
+                throw new UserAgeException("Solo se puede actualizar la edad a más de 14 años");
             }
 
             //actualizar usuario y retornar num col actualizadas en db
