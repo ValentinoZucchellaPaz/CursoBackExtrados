@@ -3,6 +3,7 @@ using Dapper;
 using System.Data;
 using System.Xml.Linq;
 using DAO_Entidades.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DAO_Entidades
 {
@@ -10,14 +11,16 @@ namespace DAO_Entidades
     {
 
         private readonly string _connectionString = connectionString;
-        private readonly string queryGetAllUsers = "select * from usuarios where unsub_date is null;";
-        private readonly string queryGetUser = "select * from usuarios where id = @id and unsub_date is null;";
-        private readonly string queryCreateUser = "insert into usuarios (name, age, mail, password, salt) values (@name, @age, @mail, @password, @salt);";
+        private readonly string queryGetAllUsers = "select * from usuarios;";
+        private readonly string queryGetUser = "select * from usuarios where id = @id;";
+        private readonly string queryCreateUser = "insert into usuarios (name, age, mail, password, salt, role) values (@name, @age, @mail, @password, @salt, @role);";
         private readonly string queryVerifyUnsub = "select unsub_date from usuarios where id=@id;";
         private readonly string queryDeleteUser = "update usuarios set unsub_date = @date where id=@id;";
         private readonly string queryUpdateUser = "update usuarios set name=@name, age=@age where id=@id;";
         private readonly string queryGetActiveMails = "select mail from usuarios where mail = @mail and unsub_date is null";
         private readonly string queryGetUserByMail = "select * from usuarios where mail = @mail and unsub_date is null";
+        private readonly string queryRentBook = "update libros set rent_date=@rentDate, expiration_date=@expirationDate, user_id=@userId where name=@bookName";
+        private readonly string queryGetBookByName = "select * from libros where name=@bookName";
 
         public List<User> GetAllUsers()
         {
@@ -40,15 +43,15 @@ namespace DAO_Entidades
             }
         }
 
-        public int CreateUser(string name, int age, string mail, string password, string salt)
+        public int CreateUser(string name, int age, string mail, string password, string salt, string role)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-                var res = conn.Execute(queryCreateUser, new { name, age, mail, password, salt });
+                var res = conn.Execute(queryCreateUser, new { name, age, mail, password, salt, role });
                 if (res == 0)
                 {
-                    throw new Exception("No se ha podido crear el usuario correctamente");
+                    return 0;
                 }
                 //usuario creado correctamente, recuperar su id
                 int user_id = conn.QuerySingle<int>("select last_insert_id();");
@@ -56,7 +59,7 @@ namespace DAO_Entidades
             }
         }
 
-        public bool DeleteUser(int id, string date)
+        public bool DeleteUser(int id, DateTime date)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
@@ -103,6 +106,46 @@ namespace DAO_Entidades
                 conn.Open();
                 var res = conn.QueryFirstOrDefault<User>(queryGetUserByMail, new { mail });
                 return res;
+            }
+        }
+
+        public bool RentBook(int id, string book, string rentDate, string expirationDate)
+        {
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                var res = conn.Execute(queryRentBook, new { id, rentDate, expirationDate, name = book });
+                return res > 0;
+            }
+        }
+        public List<Book> GetBooks()
+        {
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                var res = conn.Query<Book>("select * from libros").ToList();
+                return res;
+            }
+        }
+
+        public Book? GetBook(string bookName)
+        {
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                var res = conn.QueryFirstOrDefault<Book>(queryGetBookByName, new { bookName });
+                return res;
+            }
+        }
+
+        public bool RentBook(string bookName, DateTime rentDate, DateTime expirationDate, int userId)
+        {
+            //buscar libro y actualizar
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                var res = conn.Execute(queryRentBook, new { rentDate, expirationDate, userId, bookName});
+                return res > 0;
             }
         }
     }

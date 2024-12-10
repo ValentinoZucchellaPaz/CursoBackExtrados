@@ -10,5 +10,7 @@ namespace API.Services.UserService
         public int CreateUser(MCreateUser user);
         public int UpdateUser(MUpdateUser user);
         public bool DeleteUser(MId userId);
+        public List<Book> GetBooks();
+        public bool RentBook(string bookName);
     }
 }

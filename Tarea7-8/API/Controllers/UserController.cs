@@ -3,6 +3,7 @@ using API.Services.UserService;
 using DAO_Entidades.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace API.Controllers
@@ -24,7 +25,7 @@ namespace API.Controllers
 
             if (user == null) return Unauthorized(new { message = "Mail o contraseña incorrectos", success = false });
 
-            var token = _authService.GenerateJwtToken(user.Id.ToString(), user.Mail);
+            var token = _authService.GenerateJwtToken(user.Id.ToString(), user.Mail, user.Role);
 
             return Ok(new
             {
@@ -33,7 +34,8 @@ namespace API.Controllers
                 {
                     user.Id,
                     user.Name,
-                    user.Mail
+                    user.Mail,
+                    user.Role,
                 }
             });
         }
@@ -65,27 +67,23 @@ namespace API.Controllers
         public IActionResult CreateUser(MCreateUser request)
         {
             int id = _userService.CreateUser(request);
-            //manejar con excepciones propias
-            switch (id)
-            {
-                case 0:
-                    return BadRequest(new { message = "Hubo un problema con la base de datos", success = false });
-                default:
-                    return Ok(new { message = $"Usuario creado exitosamente con id {id}", success = true });
-            }
+
+            return id == 0 ? 
+                BadRequest(new { message = "Hubo un problema con la base de datos", success = false })
+                : Ok(new { message = $"Usuario creado exitosamente con id {id}", success = true });
         }
 
         [HttpPost("delete")]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteUser(MId request)
         {
-            bool response = _userService.DeleteUser(request);
-            return response ?
+            bool deleted = _userService.DeleteUser(request);
+            return deleted ?
                 Ok(new { message = $"Usuario con id {request.Id} eliminado exitosamente", success = true })
-                : NotFound(new { message = $"No se ha encontrado ningun usuario activo con id {request.Id}", success = false });
-            
+                : NotFound(new { message = $"No se pudo eliminar al usuario con id {request.Id}", success = false });
+
         }
 
         [HttpPost("update")]
@@ -95,22 +93,33 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult UpdateUser(MUpdateUser request)
         {
+            //si se actuliza correctamente se recupera la id de usuario
             int response = _userService.UpdateUser(request);
-            //manejar con excepciones propias
-            switch (response)
-            {
-                case -1:
-                    return BadRequest(new { message = "El usuario no puede ser menor a 14 años", success = false });
-                case 0:
-                    return NotFound(new { message=$"No se ha encontrado ningun usuario con id {request.Id}"});
-                default:
-                    return Ok(new
-                    {
-                        message = $"Usuario actualizado correctamente con los valores" +
+
+            return response == 0 ?
+                NotFound("El usuario que quiere actualizar no se encuentra activo")
+                : Ok(new
+                {
+                    message = $"Usuario con id {response} actualizado correctamente con los valores: " +
                         $"Name: {request.Name} - Age: {request.Age}",
-                        success = true
-                    });
-            }
+                    success = true
+                });
+        }
+
+        [HttpGet("book")]
+        [Authorize(Roles ="user")]
+        public IActionResult GetBooks()
+        {
+            var res = _userService.GetBooks();
+            return Ok(res);
+        }
+
+        [HttpPost("rent-book")]
+        [Authorize(Roles = "user")]
+        public IActionResult RentBook(MBook bookName)
+        {
+            var res = _userService.RentBook(bookName.Name);
+            return Ok(res);
         }
     }
 }

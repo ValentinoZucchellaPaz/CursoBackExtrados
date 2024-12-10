@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DAO_Entidades.Models
 {
-    public class User(int id, string name, int age, string mail, string password, string salt, string? unsub_date)
+    public class User(int id, string name, int age, string mail, string password, string salt, DateTime? unsub_date, string role)
     {
         public int Id { get; set; } = id;
         public string Name { get; set; } = name;
@@ -14,7 +15,8 @@ namespace DAO_Entidades.Models
         public string Mail { get; set; } = mail;
         private string Password { get; set; } = password;
         private string Salt { get; set; } = salt;
-        public string? UnsubDate { get; set; } = unsub_date;
+        public DateTime? UnsubDate { get; set; } = unsub_date;
+        public string Role { get; set; } = role;
 
         public string GetPass()
         {
@@ -25,10 +27,9 @@ namespace DAO_Entidades.Models
             return Salt;
         }
 
-
         public override string ToString()
         {
-            return $"id: {Id} - name: {Name} - age: {Age} - mail: {Mail} - unsub_date: {UnsubDate ?? "null"}";
+            return $"id: {Id} - name: {Name} - age: {Age} - mail: {Mail} - unsub_date: {UnsubDate}";
         }
     }
 }

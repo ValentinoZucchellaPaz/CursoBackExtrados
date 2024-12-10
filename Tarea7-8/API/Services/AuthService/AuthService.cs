@@ -12,14 +12,15 @@ namespace API.Services.AuthService
         private readonly string _jwtKey = options.Value.Secret;
         private readonly string _jwtIssuer = options.Value.Issuer;
 
-        public string GenerateJwtToken(string userId, string userMail)
+        public string GenerateJwtToken(string userId, string userMail, string role)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Sid, userId),
-                new Claim(ClaimTypes.Email, userMail)
+                new Claim(ClaimTypes.Email, userMail),
+                new Claim(ClaimTypes.Role, role)
             };
 
             var securityToken = new JwtSecurityToken(

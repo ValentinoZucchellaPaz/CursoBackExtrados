@@ -14,7 +14,6 @@ namespace API.Middleware
             try
             {
                 await _next(context);
-                Console.WriteLine("desde middleware");
             }
             catch (MySqlException e)
             {
@@ -27,6 +26,14 @@ namespace API.Middleware
             catch(UserAgeException e)
             {
                 await HandleExceptionAsync(context, HttpStatusCode.BadRequest, "Edad invalida", e);
+            }
+            catch(InvalidRoleException e)
+            {
+                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, "Rol invalido", e);
+            }
+            catch(RentBookException e)
+            {
+                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, "Alquilado invalido", e);
             }
             catch(Exception e)
             {
@@ -41,8 +48,9 @@ namespace API.Middleware
             context.Response.StatusCode = (int)statusCode;
             var response = new
             {
-                StatusCode = statusCode,
+                StatusCode = (int)statusCode,
                 Message = message,
+                ExceptionType = exception.GetType(),
                 ExceptionMessage = exception.Message
             };
 
