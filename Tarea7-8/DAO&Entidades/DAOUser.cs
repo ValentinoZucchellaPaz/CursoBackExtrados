@@ -22,129 +22,122 @@ namespace DAO_Entidades
         private readonly string queryRentBook = "update libros set rent_date=@rentDate, expiration_date=@expirationDate, user_id=@userId where name=@bookName";
         private readonly string queryGetBookByName = "select * from libros where name=@bookName";
 
-        public List<User> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
             //trae usuarios activos
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var res = conn.Query<User>(queryGetAllUsers).ToList();
-                return res;
+                await conn.OpenAsync();
+                return await conn.QueryAsync<User>(queryGetAllUsers);
             }
         }
 
-        public User? GetUser(int id)
+        public async Task<User?> GetUser(int id)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var res = conn.QueryFirstOrDefault<User>(queryGetUser, new { id });
-                return res;
+                await conn.OpenAsync();
+                return await conn.QueryFirstOrDefaultAsync<User>(queryGetUser, new { id });
             }
         }
 
-        public int CreateUser(string name, int age, string mail, string password, string salt, string role)
+        public async Task<int> CreateUser(string name, int age, string mail, string password, string salt, string role)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var res = conn.Execute(queryCreateUser, new { name, age, mail, password, salt, role });
+                await conn.OpenAsync();
+                var res = await conn.ExecuteAsync(queryCreateUser, new { name, age, mail, password, salt, role });
                 if (res == 0)
                 {
                     return 0;
                 }
                 //usuario creado correctamente, recuperar su id
-                int user_id = conn.QuerySingle<int>("select last_insert_id();");
-                return user_id;
+                return await conn.QuerySingleAsync<int>("select last_insert_id();");
             }
         }
 
-        public bool DeleteUser(int id, DateTime date)
+        public async Task<bool> DeleteUser(int id, DateTime date)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var unsub_date_user = conn.QueryFirstOrDefault<string?>(queryVerifyUnsub, new { id });
+                await conn.OpenAsync();
+                var unsub_date_user = await conn.QueryFirstOrDefaultAsync<string?>(queryVerifyUnsub, new { id });
                 if (unsub_date_user != null)
                 {
                     return false;
                 }
-                var res = conn.Execute(queryDeleteUser, new { date, id });
+                var res = await conn.ExecuteAsync(queryDeleteUser, new { date, id });
                 return res > 0;
             }
         }
 
-        public int UpdateUser(int id, string name, int age)
+        public async Task<int> UpdateUser(int id, string name, int age)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var unsub_date_user = conn.QueryFirstOrDefault<string?>(queryVerifyUnsub, new { id });
+                await conn.OpenAsync();
+                var unsub_date_user = await conn.QueryFirstOrDefaultAsync<string?>(queryVerifyUnsub, new { id });
                 if (unsub_date_user != null)
                 {
                     return 0;
                 }
-                var res = conn.Execute(queryUpdateUser, new { name, age, id });
-                return res;
+                return await conn.ExecuteAsync(queryUpdateUser, new { name, age, id });
             }
         }
 
-        public bool IsMailInUse(string mail)
+        public async Task<bool> IsMailInUse(string mail)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var mail_in_use = conn.QueryFirstOrDefault<string>(queryGetActiveMails, new { mail });
+                await conn.OpenAsync();
+                var mail_in_use = await conn.QueryFirstOrDefaultAsync<string>(queryGetActiveMails, new { mail });
                 return mail_in_use != null;
             }
         }
 
-        public User? GetUserByMail(string mail)
+        public async Task<User?> GetUserByMail(string mail)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var res = conn.QueryFirstOrDefault<User>(queryGetUserByMail, new { mail });
-                return res;
+                await conn.OpenAsync();
+                return await conn.QueryFirstOrDefaultAsync<User>(queryGetUserByMail, new { mail });
             }
         }
 
-        public bool RentBook(int id, string book, string rentDate, string expirationDate)
+        public async Task<bool> RentBook(int id, string book, string rentDate, string expirationDate)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var res = conn.Execute(queryRentBook, new { id, rentDate, expirationDate, name = book });
+                await conn.OpenAsync();
+                var res = await conn.ExecuteAsync(queryRentBook, new { id, rentDate, expirationDate, name = book });
                 return res > 0;
             }
         }
-        public List<Book> GetBooks()
+        public async Task<IEnumerable<Book>> GetBooks()
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var res = conn.Query<Book>("select * from libros").ToList();
-                return res;
+                await conn.OpenAsync();
+                return await conn.QueryAsync<Book>("select * from libros");
             }
         }
 
-        public Book? GetBook(string bookName)
+        public async Task<Book?> GetBook(string bookName)
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var res = conn.QueryFirstOrDefault<Book>(queryGetBookByName, new { bookName });
-                return res;
+                await conn.OpenAsync();
+                return await conn.QueryFirstOrDefaultAsync<Book>(queryGetBookByName, new { bookName });
             }
         }
 
-        public bool RentBook(string bookName, DateTime rentDate, DateTime expirationDate, int userId)
+        public async Task<bool> RentBook(string bookName, DateTime rentDate, DateTime expirationDate, int userId)
         {
             //buscar libro y actualizar
             using (var conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
-                var res = conn.Execute(queryRentBook, new { rentDate, expirationDate, userId, bookName});
+                await conn.OpenAsync();
+                var res = await conn.ExecuteAsync(queryRentBook, new { rentDate, expirationDate, userId, bookName});
                 return res > 0;
             }
         }

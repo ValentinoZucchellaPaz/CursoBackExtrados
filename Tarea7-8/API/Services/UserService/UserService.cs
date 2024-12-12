@@ -12,9 +12,9 @@ namespace API.Services.UserService
         private readonly IDAOUser _db = db;
         private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
-        public User? Authenticate(string mail, string password)
+        public async Task<User?> Authenticate(string mail, string password)
         {
-            var user = _db.GetUserByMail(mail);
+            var user = await _db.GetUserByMail(mail);
 
             if (user == null || !PasswordHasher.VerifyPassword(password, user.GetPass(), user.GetSalt()))
             {
@@ -23,17 +23,17 @@ namespace API.Services.UserService
             return user;
         }
 
-        public List<User> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
-            return _db.GetAllUsers();
+            return await _db.GetAllUsers();
         }
 
-        public User? GetUser(int id)
+        public async Task<User?> GetUser(int id)
         {
-            return _db.GetUser(id);
+            return await _db.GetUser(id);
         }
 
-        public int CreateUser(MCreateUser user)
+        public async Task<int> CreateUser(MCreateUser user)
         {
             //desestructurar request
             (string name, int age, string mail, string password, string role) = (user.Name, user.Age, user.Mail, user.Password, user.Role);
@@ -46,7 +46,7 @@ namespace API.Services.UserService
             {
                 throw new InvalidMailException("Solo se pueden registar usuarios con mail Gmail (@gmail.com)");
             }
-            else if (_db.IsMailInUse(mail))
+            else if (await _db.IsMailInUse(mail))
             {
                 //preguntar si es mejor este error o esperar excepcion de la db
                 throw new InvalidMailException("Este correo ya esta siendo usando otro usuario");
@@ -61,10 +61,10 @@ namespace API.Services.UserService
             var (hash, salt) = PasswordHasher.HashPassword(password);
 
             //crear usuario y retornar su id de creacion
-            return _db.CreateUser(name, age, mail, hash, salt, role);
+            return await _db.CreateUser(name, age, mail, hash, salt, role);
         }
 
-        public int UpdateUser(MUpdateUser user)
+        public async Task<int> UpdateUser(MUpdateUser user)
         {
             var userId = GetUserIdFromClaims();
 
@@ -75,11 +75,11 @@ namespace API.Services.UserService
             }
 
             //actualizar usuario y retornar num col actualizadas en db
-            var res = _db.UpdateUser(userId, user.Name, user.Age);
+            var res = await _db.UpdateUser(userId, user.Name, user.Age);
             return res == 0 ? res : userId;
         }
 
-        public bool DeleteUser(MId userId)
+        public async Task<bool> DeleteUser(MId userId)
         {
             int id = userId.Id;
 
@@ -87,21 +87,21 @@ namespace API.Services.UserService
             DateTime utcNow = DateTime.UtcNow;
 
             //eliminar usuario, si hubo exito retornar el id de usuario, sino 0
-            return _db.DeleteUser(id, utcNow);
+            return await _db.DeleteUser(id, utcNow);
         }
 
-        public List<Book> GetBooks()
+        public async Task<IEnumerable<Book>> GetBooks()
         {
-            return _db.GetBooks();
+            return await _db.GetBooks();
         }
 
-        public bool RentBook(string bookName)
+        public async Task<bool> RentBook(string bookName)
         {
             var userId = GetUserIdFromClaims();
 
             // Verificar que no este alquilado en este momento el libro
             DateTime utcNow = DateTime.UtcNow;
-            var bookToRent = _db.GetBook(bookName) ?? throw new RentBookException("Este libro no existe, revise los nombres de libro existentes");
+            var bookToRent = await _db.GetBook(bookName) ?? throw new RentBookException("Este libro no existe, revise los nombres de libro existentes");
             if(bookToRent.ExpirationDate > utcNow)
             {
                 throw new RentBookException($"Este libro esta siendo alquilado ahora mismo por el usuario {bookToRent.userId} hasta la fecha {bookToRent.ExpirationDate}");
@@ -109,7 +109,7 @@ namespace API.Services.UserService
 
             // Alquilar
             DateTime expirationDate = utcNow.AddDays(5);
-            var res = _db.RentBook(bookName, utcNow, expirationDate, userId);
+            var res = await _db.RentBook(bookName, utcNow, expirationDate, userId);
             return res;
         }
 

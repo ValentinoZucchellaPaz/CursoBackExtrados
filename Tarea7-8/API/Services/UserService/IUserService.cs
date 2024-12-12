@@ -4,13 +4,13 @@ namespace API.Services.UserService
 {
     public interface IUserService
     {
-        public User? Authenticate(string mail, string password);
-        public List<User> GetUsers();
-        public User? GetUser(int id);
-        public int CreateUser(MCreateUser user);
-        public int UpdateUser(MUpdateUser user);
-        public bool DeleteUser(MId userId);
-        public List<Book> GetBooks();
-        public bool RentBook(string bookName);
+        public Task<User?> Authenticate(string mail, string password);
+        public Task<IEnumerable<User>> GetUsers();
+        public Task<User?> GetUser(int id);
+        public Task<int> CreateUser(MCreateUser user);
+        public Task<int> UpdateUser(MUpdateUser user);
+        public Task<bool> DeleteUser(MId userId);
+        public Task<IEnumerable<Book>> GetBooks();
+        public Task<bool> RentBook(string bookName);
     }
 }

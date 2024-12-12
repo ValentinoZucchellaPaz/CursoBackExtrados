@@ -17,4 +17,5 @@ Además, se cambio la estructura de la base de datos para agregar roles de usuar
 
 ## Extra  
 Se implemento una nueva estrategia para lanzar excepciones predeterminadas y personalizadas desde cualquier punto de la api sin tener ningun try-catch en el controller u otra parte de la api.  
-Se uso un custom middleware que maneja todas las excepciones de la api y devuelve una respuesta siempre. Dando así mayor entendimiento de los errores lanzados al usuario.
+Se uso un custom middleware que maneja todas las excepciones de la api y devuelve una respuesta siempre. Dando así mayor entendimiento de los errores lanzados al usuario.  
+**Asincronía:** se agrego asincronia en todos los metodos, asi toda llamada a la base de datos será asincrónica.

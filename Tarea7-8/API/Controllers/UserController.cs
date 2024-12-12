@@ -19,9 +19,9 @@ namespace API.Controllers
         [HttpPost("login")]
         [ProducesResponseType<bool>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult Login(MLogin login)
+        public async Task<IActionResult> Login(MLogin login)
         {
-            var user = _userService.Authenticate(login.Mail, login.Password);
+            var user = await _userService.Authenticate(login.Mail, login.Password);
 
             if (user == null) return Unauthorized(new { message = "Mail o contraseña incorrectos", success = false });
 
@@ -44,18 +44,18 @@ namespace API.Controllers
         [Authorize]
         [ProducesResponseType<IEnumerable<User>>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            return Ok(_userService.GetUsers());
+            return Ok(await _userService.GetUsers());
         }
 
         [HttpGet("search/{id}")]
         [Authorize]
         [ProducesResponseType<User>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetUser(int id)
+        public async Task<IActionResult> GetUser(int id)
         {
-            var user = _userService.GetUser(id);
+            var user = await _userService.GetUser(id);
             return user == null ?
                 NotFound(new { message = $"No se ha encontrado el usuario con id {id}", success = false })
                 : Ok(user);
@@ -64,9 +64,9 @@ namespace API.Controllers
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult CreateUser(MCreateUser request)
+        public async Task<IActionResult> CreateUser(MCreateUser request)
         {
-            int id = _userService.CreateUser(request);
+            int id = await _userService.CreateUser(request);
 
             return id == 0 ? 
                 BadRequest(new { message = "Hubo un problema con la base de datos", success = false })
@@ -77,9 +77,9 @@ namespace API.Controllers
         [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteUser(MId request)
+        public async Task<IActionResult> DeleteUser(MId request)
         {
-            bool deleted = _userService.DeleteUser(request);
+            bool deleted = await _userService.DeleteUser(request);
             return deleted ?
                 Ok(new { message = $"Usuario con id {request.Id} eliminado exitosamente", success = true })
                 : NotFound(new { message = $"No se pudo eliminar al usuario con id {request.Id}", success = false });
@@ -91,10 +91,10 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateUser(MUpdateUser request)
+        public async Task<IActionResult> UpdateUser(MUpdateUser request)
         {
             //si se actuliza correctamente se recupera la id de usuario
-            int response = _userService.UpdateUser(request);
+            int response = await _userService.UpdateUser(request);
 
             return response == 0 ?
                 NotFound("El usuario que quiere actualizar no se encuentra activo")
@@ -108,17 +108,17 @@ namespace API.Controllers
 
         [HttpGet("book")]
         [Authorize(Roles ="user")]
-        public IActionResult GetBooks()
+        public async Task<IActionResult> GetBooks()
         {
-            var res = _userService.GetBooks();
+            var res = await _userService.GetBooks();
             return Ok(res);
         }
 
         [HttpPost("rent-book")]
         [Authorize(Roles = "user")]
-        public IActionResult RentBook(MBook bookName)
+        public async Task<IActionResult> RentBook(MBook bookName)
         {
-            var res = _userService.RentBook(bookName.Name);
+            var res = await _userService.RentBook(bookName.Name);
             return Ok(res);
         }
     }
