@@ -12,13 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Configure Swagger/OpenAPI (https://aka.ms/aspnetcore/swashbuckle)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//---------------------------Middlewares configuration-----------------------------
-
-//configure auth
+// Configure auth
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -33,7 +31,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]))
         };
     });
-//configure cors
+
+// Configure cors
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -42,18 +41,18 @@ builder.Services.AddCors(options =>
     });
 });
 
-//-------------------------------------DI------------------------------------------
+// DI
 builder.Services.AddSingleton<IDAOUser>(new DAOUser(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddHttpContextAccessor();
 
-//configure options
+// Configure options
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("Jwt"));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -63,7 +62,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>(); //custom middleware
 
 app.MapControllers();
 
