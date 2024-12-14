@@ -1,4 +1,4 @@
-﻿namespace API.Auxiliar.Exceptions
+﻿namespace Services.Security.Exceptions
 {
     public class UserAgeException : Exception
     {

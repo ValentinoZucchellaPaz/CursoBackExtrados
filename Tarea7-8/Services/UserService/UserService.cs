@@ -1,11 +1,12 @@
-﻿using API.Auxiliar;
-using API.Auxiliar.Exceptions;
-using DAO_Entidades;
+﻿using DAO_Entidades.DAO;
+using DAO_Entidades.Entities;
 using DAO_Entidades.Models;
-using MySqlConnector;
+using Microsoft.AspNetCore.Http;
+using Services.Security;
+using Services.Security.Exceptions;
 using System.Security.Claims;
 
-namespace API.Services.UserService
+namespace Services.UserService
 {
     public class UserService(IDAOUser db, IHttpContextAccessor httpContextAccessor) : IUserService
     {
@@ -102,7 +103,7 @@ namespace API.Services.UserService
             // Verificar que no este alquilado en este momento el libro
             DateTime utcNow = DateTime.UtcNow;
             var bookToRent = await _db.GetBook(bookName) ?? throw new RentBookException("Este libro no existe, revise los nombres de libro existentes");
-            if(bookToRent.ExpirationDate > utcNow)
+            if (bookToRent.ExpirationDate > utcNow)
             {
                 throw new RentBookException($"Este libro esta siendo alquilado ahora mismo por el usuario {bookToRent.userId} hasta la fecha {bookToRent.ExpirationDate}");
             }

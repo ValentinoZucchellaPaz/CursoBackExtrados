@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAO_Entidades.Models
+﻿namespace DAO_Entidades.Entities
 {
     public class User(int id, string name, int age, string mail, string password, string salt, DateTime? unsub_date, string role)
     {

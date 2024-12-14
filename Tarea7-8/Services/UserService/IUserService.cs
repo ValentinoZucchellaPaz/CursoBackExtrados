@@ -1,6 +1,7 @@
-﻿using DAO_Entidades.Models;
+﻿using DAO_Entidades.Entities;
+using DAO_Entidades.Models;
 
-namespace API.Services.UserService
+namespace Services.UserService
 {
     public interface IUserService
     {

@@ -1,9 +1,9 @@
-﻿using API.Services.AuthService;
-using API.Services.UserService;
+﻿using DAO_Entidades.Entities;
 using DAO_Entidades.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using Services.AuthService;
+using Services.UserService;
 
 
 namespace API.Controllers
@@ -13,8 +13,8 @@ namespace API.Controllers
     public class UsersController(IUserService userService, IAuthService authService) : Controller
     {
 
-        private IUserService _userService = userService;
-        private IAuthService _authService = authService;
+        private readonly IUserService _userService = userService;
+        private readonly IAuthService _authService = authService;
 
         [HttpPost("login")]
         [ProducesResponseType<bool>(StatusCodes.Status200OK)]

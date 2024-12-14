@@ -1,6 +1,6 @@
-﻿namespace API.Auxiliar.Exceptions
+﻿namespace Services.Security.Exceptions
 {
-    public class RentBookException: Exception
+    public class RentBookException : Exception
     {
         public RentBookException() : base("El correo no es válido. Solo se aceptan correos de Gmail.")
         {

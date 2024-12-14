@@ -1,5 +1,5 @@
-﻿using API.Auxiliar.Exceptions;
-using MySqlConnector;
+﻿using MySqlConnector;
+using Services.Security.Exceptions;
 using System.Net;
 
 namespace API.Middleware

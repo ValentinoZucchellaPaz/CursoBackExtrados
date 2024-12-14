@@ -1,13 +1,10 @@
 ﻿using MySqlConnector;
 using Dapper;
-using System.Data;
-using System.Xml.Linq;
-using DAO_Entidades.Models;
-using System.Security.Cryptography.X509Certificates;
+using DAO_Entidades.Entities;
 
-namespace DAO_Entidades
+namespace DAO_Entidades.DAO
 {
-    public class DAOUser (string connectionString): IDAOUser
+    public class DAOUser(string connectionString) : IDAOUser
     {
 
         private readonly string _connectionString = connectionString;
@@ -137,7 +134,7 @@ namespace DAO_Entidades
             using (var conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                var res = await conn.ExecuteAsync(queryRentBook, new { rentDate, expirationDate, userId, bookName});
+                var res = await conn.ExecuteAsync(queryRentBook, new { rentDate, expirationDate, userId, bookName });
                 return res > 0;
             }
         }

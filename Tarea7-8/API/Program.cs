@@ -1,11 +1,11 @@
 using API.Middleware;
-using API.Services.AuthService;
-using API.Services.UserService;
 using Configuration;
-using DAO_Entidades;
+using DAO_Entidades.DAO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Services.UserService;
+using Services.AuthService;
 
 var builder = WebApplication.CreateBuilder(args);
 

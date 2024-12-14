@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace API.Services.AuthService
+namespace Services.AuthService
 {
     public class AuthService(IOptions<JwtConfig> options) : IAuthService
     {

@@ -1,4 +1,4 @@
-﻿namespace API.Services.AuthService
+﻿namespace Services.AuthService
 {
     public interface IAuthService
     {
