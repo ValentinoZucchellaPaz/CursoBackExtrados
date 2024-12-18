@@ -1,6 +1,7 @@
 ﻿using MySqlConnector;
 using Services.Security.Exceptions;
 using System.Net;
+using System.Text.Json;
 
 namespace API.Middleware
 {
@@ -56,6 +57,15 @@ namespace API.Middleware
 
             // Devuelve un JSON con el mensaje de error
             return context.Response.WriteAsync(response.ToString());
+
+            //var res = JsonSerializer.Serialize(new
+            //{
+            //    StatusCode = (int)statusCode,
+            //    Message = message,
+            //    ExceptionType = exception.GetType(),
+            //    ExceptionMessage = exception.Message
+            //});
+            //return context.Response.WriteAsync(res);
         }
     }
 }

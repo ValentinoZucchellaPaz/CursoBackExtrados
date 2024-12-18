@@ -6,19 +6,10 @@
         public string Name { get; set; } = name;
         public int Age { get; set; } = age;
         public string Mail { get; set; } = mail;
-        private string Password { get; set; } = password;
-        private string Salt { get; set; } = salt;
+        public string Password { get; set; } = password;
+        public string Salt { get; set; } = salt;
         public DateTime? UnsubDate { get; set; } = unsub_date;
         public string Role { get; set; } = role;
-
-        public string GetPass()
-        {
-            return Password;
-        }
-        public string GetSalt()
-        {
-            return Salt;
-        }
 
         public override string ToString()
         {

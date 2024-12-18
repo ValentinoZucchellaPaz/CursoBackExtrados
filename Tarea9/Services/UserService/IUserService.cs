@@ -1,15 +1,16 @@
-﻿using DAO_Entidades.Entities;
-using DAO_Entidades.Models;
+﻿using DAO_Entidades.DTOs.User;
+using DAO_Entidades.Entities;
 
 namespace Services.UserService
 {
     public interface IUserService
     {
-        public Task<User?> Authenticate(string mail, string password);
-        public Task<IEnumerable<User>> GetUsers();
-        public Task<User?> GetUser(int id);
-        public Task<int> CreateUser(MCreateUser user);
-        public Task<int> UpdateUser(MUpdateUser user);
-        public Task<bool> DeleteUser(MId userId);
+        public Task<DTOUser?> Authenticate(string mail, string password);
+        public Task<List<DTOUser>> GetUsers();
+        public Task<DTOUser?> GetUser(int id);
+        public Task<int> CreateUser(DTOCreateUser user);
+        public Task<int> UpdateUser(DTOUpdateUser user);
+        public Task<bool> DeleteUser(DTOId userId);
+        public DTOUserClaims GetUserClaims();
     }
 }

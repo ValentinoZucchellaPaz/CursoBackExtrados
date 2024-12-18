@@ -1,5 +1,6 @@
 ﻿using DAO_Entidades.DAO.DAOBook;
 using DAO_Entidades.DAO.DAOUser;
+using DAO_Entidades.DTOs.Book;
 using DAO_Entidades.Entities;
 using Microsoft.AspNetCore.Http;
 using Services.Security.Exceptions;
@@ -17,9 +18,17 @@ namespace Services.BookService
         private readonly IDAOBook _db = db;
         private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
-        public async Task<IEnumerable<Book>> GetBooks()
+        public async Task<List<DTOBookResponse>> GetBooks()
         {
-            return await _db.GetBooks();
+            var books = await _db.GetBooks();
+            //pasar a entidad a dto
+            var DtoBookList = new List<DTOBookResponse>();
+            foreach (var book in books)
+            {
+                DtoBookList.Add(new DTOBookResponse(book.Name, book.RentDate, book.ExpirationDate, book.UserId));
+            }
+            return DtoBookList;
+
         }
 
         public async Task<Book?> GetBook(string name)
@@ -34,9 +43,9 @@ namespace Services.BookService
             // Verificar que no este alquilado en este momento el libro
             DateTime utcNow = DateTime.UtcNow;
             var bookToRent = await _db.GetBook(bookName) ?? throw new RentBookException("Este libro no existe, revise los nombres de libro existentes");
-            if (bookToRent.ExpirationDate > utcNow)
+            if (bookToRent.ExpirationDate > utcNow && bookToRent.UserId != null)
             {
-                throw new RentBookException($"Este libro esta siendo alquilado ahora mismo por el usuario {bookToRent.userId} hasta la fecha {bookToRent.ExpirationDate}");
+                throw new RentBookException($"Este libro esta siendo alquilado ahora mismo por el usuario {bookToRent.UserId} hasta la fecha {bookToRent.ExpirationDate}");
             }
 
             // Alquilar

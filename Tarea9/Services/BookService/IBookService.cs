@@ -1,4 +1,5 @@
-﻿using DAO_Entidades.Entities;
+﻿using DAO_Entidades.DTOs.Book;
+using DAO_Entidades.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Services.BookService
 {
     public interface IBookService
     {
-        public Task<IEnumerable<Book>> GetBooks();
+        public Task<List<DTOBookResponse>> GetBooks();
         public Task<Book?> GetBook(string name);
         public Task<bool> RentBook(string bookName);
     }

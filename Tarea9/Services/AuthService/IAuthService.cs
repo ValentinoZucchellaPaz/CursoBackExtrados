@@ -1,11 +1,11 @@
-﻿using DAO_Entidades.Models;
+﻿using DAO_Entidades.DTOs.Token;
 
 namespace Services.AuthService
 {
     public interface IAuthService
     {
-        public Task<TokenResponse> GenerateTokens(string userId, string userMail, string role);
-        public Task<bool> ValidateRefreshToken(string userId, string refreshToken);
-        public Task<bool> RevokeRefreshToken(string userId, string refreshToken);
+        public Task<DTOTokens> GenerateTokens(int userId, string userMail, string role);
+        public Task<bool> ValidateRefreshToken(int userId, string refreshToken);
+        public Task<bool> DeleteRefreshToken(int userId, string refreshToken);
     }
 }

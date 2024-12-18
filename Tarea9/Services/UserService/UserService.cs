@@ -1,6 +1,6 @@
 ﻿using DAO_Entidades.DAO.DAOUser;
+using DAO_Entidades.DTOs.User;
 using DAO_Entidades.Entities;
-using DAO_Entidades.Models;
 using Microsoft.AspNetCore.Http;
 using Services.Security;
 using Services.Security.Exceptions;
@@ -13,28 +13,35 @@ namespace Services.UserService
         private readonly IDAOUser _db = db;
         private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
-        public async Task<User?> Authenticate(string mail, string password)
+        public async Task<DTOUser?> Authenticate(string mail, string password)
         {
             var user = await _db.GetUserByMail(mail);
 
-            if (user == null || !PasswordHasher.VerifyPassword(password, user.GetPass(), user.GetSalt()))
+            if (user == null || !PasswordHasher.VerifyPassword(password, user.Password, user.Salt))
             {
                 return null;
             }
-            return user;
+            return new DTOUser(user.Id, user.Name, user.Age, user.Mail, user.UnsubDate, user.Role);
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<List<DTOUser>> GetUsers()
         {
-            return await _db.GetAllUsers();
+            var users = await _db.GetAllUsers();
+            var DtoUsersList = new List<DTOUser>();
+            foreach (User user in users)
+            {
+                DtoUsersList.Add(new DTOUser(user.Id, user.Name, user.Age, user.Mail, user.UnsubDate, user.Role));
+            }
+            return DtoUsersList;
         }
 
-        public async Task<User?> GetUser(int id)
+        public async Task<DTOUser?> GetUser(int id)
         {
-            return await _db.GetUser(id);
+            var user = await _db.GetUser(id);
+            return user != null ? new DTOUser(user.Id, user.Name, user.Age, user.Mail, user.UnsubDate, user.Role) : null;
         }
 
-        public async Task<int> CreateUser(MCreateUser user)
+        public async Task<int> CreateUser(DTOCreateUser user)
         {
             //desestructurar request
             (string name, int age, string mail, string password, string role) = (user.Name, user.Age, user.Mail, user.Password, user.Role);
@@ -65,9 +72,10 @@ namespace Services.UserService
             return await _db.CreateUser(name, age, mail, hash, salt, role);
         }
 
-        public async Task<int> UpdateUser(MUpdateUser user)
+        public async Task<int> UpdateUser(DTOUpdateUser user)
         {
-            var userId = GetUserIdFromClaims();
+            // se actualiza el user dueño del jwt enviado por auth
+            var userId = GetUserClaims().Sid;
 
             //validar edad
             if (user.Age < 14)
@@ -80,7 +88,7 @@ namespace Services.UserService
             return res == 0 ? res : userId;
         }
 
-        public async Task<bool> DeleteUser(MId userId)
+        public async Task<bool> DeleteUser(DTOId userId)
         {
             int id = userId.Id;
 
@@ -91,18 +99,25 @@ namespace Services.UserService
             return await _db.DeleteUser(id, utcNow);
         }
 
-        private int GetUserIdFromClaims()
+        // esto va a leer el token pasado por authentication y sacar las claims de este, si no se pasa ningun jwt por auth no lee nada
+        public DTOUserClaims GetUserClaims()
         {
-            // Obtener el ID del usuario desde los claims del token
-            var userIdClaim = (_httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid))
-                ?? throw new UnauthorizedAccessException("El token no contiene información de usuario.");
+            // Extraer las claims del HttpContext
+            var sid = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Sid);
+            var mail = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Email);
+            var role = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Role);
 
-            if (!int.TryParse(userIdClaim.Value, out int userId))
+            if (sid == null || mail == null || role == null)
+            {
+                throw new UnauthorizedAccessException("Las claims no están disponibles en el token.");
+            }
+
+            if (!int.TryParse(sid.Value, out int userId))
             {
                 throw new InvalidOperationException("El ID del usuario en los claims no es válido.");
             }
 
-            return userId;
+            return new DTOUserClaims(userId, mail.Value, role.Value);
         }
 
     }

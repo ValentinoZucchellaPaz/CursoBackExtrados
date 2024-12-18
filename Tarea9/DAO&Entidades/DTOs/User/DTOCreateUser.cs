@@ -1,6 +1,6 @@
-﻿namespace DAO_Entidades.Models
+﻿namespace DAO_Entidades.DTOs.User
 {
-    public class MCreateUser(string name, int age, string mail, string password, string role = "user")
+    public class DTOCreateUser(string name, int age, string mail, string password, string role = "user")
     {
         public string Name { get; set; } = name;
         public int Age { get; set; } = age;
