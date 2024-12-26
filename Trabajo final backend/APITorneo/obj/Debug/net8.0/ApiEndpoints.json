@@ -1,0 +1,44 @@
+[
+  {
+    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "Method": "GetCartas",
+    "RelativePath": "Torneo/cartas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "Method": "GetCarta",
+    "RelativePath": "Torneo/cartas/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "Method": "GetGeneracion",
+    "RelativePath": "Torneo/generacion/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

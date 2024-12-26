@@ -1,0 +1,12 @@
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\bin\Debug\net8.0\DAO&Entidades.deps.json
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\bin\Debug\net8.0\DAO&Entidades.dll
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\bin\Debug\net8.0\DAO&Entidades.pdb
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\DAO&Entidades.csproj.AssemblyReference.cache
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\DAO&Entidades.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\DAO&Entidades.AssemblyInfoInputs.cache
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\DAO&Entidades.AssemblyInfo.cs
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\DAO&Entidades.csproj.CoreCompileInputs.cache
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\DAO&Entidades.dll
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\refint\DAO&Entidades.dll
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\DAO&Entidades.pdb
+C:\Users\vzucc\coder\Trabajo final backend\DAO&Entidades\obj\Debug\net8.0\ref\DAO&Entidades.dll
