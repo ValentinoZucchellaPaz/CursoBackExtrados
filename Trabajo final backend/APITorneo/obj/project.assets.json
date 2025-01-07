@@ -693,11 +693,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vzucc\\coder\\Trabajo final backend\\APITorneo\\APITorneo.csproj",
+      "projectUniqueName": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\APITorneo\\APITorneo.csproj",
       "projectName": "APITorneo",
-      "projectPath": "C:\\Users\\vzucc\\coder\\Trabajo final backend\\APITorneo\\APITorneo.csproj",
+      "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\APITorneo\\APITorneo.csproj",
       "packagesPath": "C:\\Users\\vzucc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vzucc\\coder\\Trabajo final backend\\APITorneo\\obj\\",
+      "outputPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\APITorneo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -718,8 +718,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\vzucc\\coder\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj": {
-              "projectPath": "C:\\Users\\vzucc\\coder\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj"
+            "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj": {
+              "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj"
             }
           }
         }

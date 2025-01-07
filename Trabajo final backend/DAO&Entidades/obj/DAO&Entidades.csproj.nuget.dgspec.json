@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vzucc\\coder\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj": {}
+    "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vzucc\\coder\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj": {
+    "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vzucc\\coder\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj",
+        "projectUniqueName": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj",
         "projectName": "DAO&Entidades",
-        "projectPath": "C:\\Users\\vzucc\\coder\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj",
+        "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj",
         "packagesPath": "C:\\Users\\vzucc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vzucc\\coder\\Trabajo final backend\\DAO&Entidades\\obj\\",
+        "outputPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
