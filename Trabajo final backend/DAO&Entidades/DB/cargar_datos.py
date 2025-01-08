@@ -1,61 +1,125 @@
 import requests
+import random
 import mysql.connector
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 
-# API TYPES
-class SetPokemon(BaseModel):
-    id:str
+# TIPOS DE POKEMON
+
+class Stat(BaseModel):
     name:str
-    series:str
-    releaseDate:str
 
-class ImagePokemon(BaseModel):
-    small:str
+class PokemonStat(BaseModel):
+    base_stat: int
+    stat: Stat
 
-class Attack(BaseModel):
-    damage:str
+class PokemonSprite(BaseModel):
+    front_default:str
 
-class Card(BaseModel):
-    id: str
+class Pokemon(BaseModel):
+    id:int
+    name:str
+    stats: list[PokemonStat]
+    sprites: PokemonSprite
+
+class PokemonSpecies(BaseModel):
+    name:str
+    url:str
+
+class ApiRes(BaseModel):
+    results: List[PokemonSpecies]
+
+class DbPokemon(BaseModel):
+    id:int
+    nombre:str
+    ilustracion:str
+    ataque:int
+    defensa:int
+
+# TIPOS DE SERIES
+
+class PokeSet(BaseModel):
+    id:str
     name: str
-    hp:str
-    attacks: Optional[List[Attack]] = None
-    images: ImagePokemon
-    set: SetPokemon
+    series: str
+    releaseDate: str
 
-class ApiResponsePokemon(BaseModel):
-    data: List[Card]
+class SetApiRes(BaseModel):
+    data: List[PokeSet]
 
-class ApiResponseSet(BaseModel):
-    data: List[SetPokemon]
+class DbSerie(BaseModel):
+    nombre:str
+    fecha_salida: str
 
 
-def get_damage_number(attack_list: list[Attack])->int:
-    res = 0
-    for attack in attack_list:
-        damage:str = attack.damage
-        if(damage != ''):
-            damage_str_parse = damage.removesuffix('+').removesuffix('×').removesuffix('x').removesuffix('-')
-            damage_int= int(damage_str_parse)
-            if(damage_int>res):
-                res=damage_int
-    return res
+def fetch_1st_gen()->List[DbPokemon]:
+    res = requests.get('https://pokeapi.co/api/v2/pokemon-species/?limit=151')
+    res.raise_for_status()
+    api_res = ApiRes.model_validate(res.json())
+    db_pokemons:List[DbPokemon] = []
+    for pokemon in api_res.results:
+        poke_res = requests.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon.name}')
+        poke_res.raise_for_status()
+        pokemon = Pokemon.model_validate(poke_res.json())
+        db_pokemons.append(DbPokemon(
+            id=pokemon.id,
+            nombre=pokemon.name,
+            ilustracion=pokemon.sprites.front_default,
+            ataque=pokemon.stats[1].base_stat,
+            defensa=pokemon.stats[2].base_stat
+        ))
+        
+    return db_pokemons
 
-def fetch_pokemon_cards(endpoint: str) -> List[Card]:
-    response = requests.get(endpoint)
-    response.raise_for_status()  # Lanza una excepción en caso de error HTTP
-    api_response = ApiResponsePokemon.model_validate(response.json(),strict=True, from_attributes=True)  # Valida los datos
-    return api_response.data
+def fetch_series():
+    res=requests.get('https://api.pokemontcg.io/v2/sets')
+    res.raise_for_status()
+    api_res = SetApiRes.model_validate(res.json())
+    db_series_names: List[str] = []
+    db_series: List[DbPokemon] = []
+    for set in api_res.data:
+        serie = DbSerie(nombre=set.series, fecha_salida=set.releaseDate)
+        if serie.nombre not in db_series_names:
+            db_series_names.append(serie.nombre)
+            db_series.append(serie)
+    return db_series
 
-def fetch_pokemon_sets(endpoint:str)->List[SetPokemon]:
-    response = requests.get(endpoint)
-    response.raise_for_status()  # Lanza una excepción en caso de error HTTP
-    api_response = ApiResponseSet.model_validate(response.json(),strict=True, from_attributes=True)  # Valida los datos
-    return api_response.data
+def generate_cartas_de_serie():
+    # db config
+    connection = mysql.connector.connect(
+        host="localhost",
+        user="admin",
+        password="24122002",
+        database="torneo_cartas"
+    )
+    cursor = connection.cursor()
+    query = """
+    INSERT INTO cartas_por_serie (id_carta, id_serie)
+    VALUES (%s, %s)
+    """
 
-def save_in_database(pokemon_data:List[Card], set_data:List[SetPokemon]):
+    # Lista de IDs de cartas (1 a 151)
+    cartas = list(range(1, 152))
+    # Lista de IDs de series (1 a 10)
+    series = list(range(1, 11))
+    # Número de cartas por serie
+    cartas_por_serie = 30
+
+    # Generar asignaciones
+    for id_serie in series:
+        # Seleccionar 30 cartas únicas aleatorias para esta serie
+        cartas_seleccionadas = random.sample(cartas, cartas_por_serie)
+        # Agregar las tuplas (id_serie, id_carta) a la lista de asignaciones
+        for id_carta in cartas_seleccionadas:
+            cursor.execute(query, (id_carta, id_serie))
+
+    # mandar transaccion y cerrar conexion
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+def save_in_database(pokemon_data:List[DbPokemon], series_data:List[DbSerie]):
     # config
     connection = mysql.connector.connect(
         host="localhost",
@@ -65,48 +129,34 @@ def save_in_database(pokemon_data:List[Card], set_data:List[SetPokemon]):
     )
     cursor = connection.cursor()
     
-    # cargar sets
-    query_sets = """
-    INSERT INTO sets (id, nombre, serie, fecha_salida)
+    # cargar pokemons
+    query_pokemons = """
+    INSERT INTO cartas (nombre, ilustracion, ataque, defensa)
     VALUES (%s, %s, %s, %s)
     """
-    for set in set_data:
-        cursor.execute(query_sets, (
-            set.id,
-            set.name,
-            set.series,
-            datetime.strptime(set.releaseDate, "%Y/%m/%d").date()
-        ))
-
-    # cargar pokemons que atacan
-    query_pokemons = """
-    INSERT INTO cartas (id, nombre, ilustracion, ataque, defensa, set_id)
-    VALUES (%s, %s, %s, %s, %s, %s)
-    """
     for pokemon in pokemon_data:
-        if pokemon.id == 'base3-3': continue
-        damage = get_damage_number(pokemon.attacks)
-        if damage == 0: continue
-        cursor.execute(query_pokemons, (pokemon.id, pokemon.name, pokemon.images.small, damage,int(pokemon.hp), pokemon.set.id))
-        
-    # limpiar sets que no son usados
-    query_clean_sets = """
-    DELETE FROM Sets WHERE id NOT IN (
-        SELECT DISTINCT set_id FROM Cartas
-    );
+        cursor.execute(query_pokemons, (pokemon.nombre, pokemon.ilustracion, pokemon.ataque, pokemon.defensa))
+
+    # cargar series
+    query_series="""
+    INSERT INTO series (nombre, fecha_salida)
+    VALUES (%s, %s)
     """
-    cursor.execute(query_clean_sets)
+    for serie in series_data:
+        cursor.execute(query_series, (serie.nombre, datetime.strptime(serie.fecha_salida, "%Y/%m/%d").date()))
+    
     
     # mandar transaccion y cerrar conexion
     connection.commit()
     cursor.close()
     connection.close()
 
+
 def main():
-    pokemon_data = fetch_pokemon_cards('https://api.pokemontcg.io/v2/cards')
-    sets_data = fetch_pokemon_sets('https://api.pokemontcg.io/v2/sets')
-    save_in_database(pokemon_data, sets_data)
-    print("Datos guardados correctamente en la base de datos.")
+    series = fetch_series()
+    pokemon = fetch_1st_gen()
+    save_in_database(pokemon_data=pokemon, series_data=series[:10])
+    generate_cartas_de_serie()
 
 if __name__ == "__main__":
     main()
