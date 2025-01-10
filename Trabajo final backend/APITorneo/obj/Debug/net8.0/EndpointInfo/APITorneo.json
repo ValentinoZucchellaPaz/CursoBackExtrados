@@ -28,8 +28,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
@@ -40,7 +39,41 @@
         }
       }
     },
-    "/Torneo/generacion/{id}": {
+    "/Torneo/series": {
+      "get": {
+        "tags": [
+          "Torneo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Torneo/series/{id}": {
+      "get": {
+        "tags": [
+          "Torneo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Torneo/series/{id}/cartas": {
       "get": {
         "tags": [
           "Torneo"

@@ -1,18 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\vzucc\\bootcamp extrados\\Trabajo final backend\\",
+  "WorkspaceRootPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|c:\\users\\vzucc\\bootcamp extrados\\trabajo final backend\\dao\u0026entidades\\dao\\daocartas\\daocartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|solutionrelative:dao\u0026entidades\\dao\\daocartas\\daocartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F65B915-6A5D-4ADF-A6EB-1EABF84E9587}|APITorneo\\APITorneo.csproj|c:\\users\\vzucc\\bootcamp extrados\\trabajo final backend\\apitorneo\\controllers\\torneocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4F65B915-6A5D-4ADF-A6EB-1EABF84E9587}|APITorneo\\APITorneo.csproj|c:\\users\\vzucc\\coder\\bootcamp extrados\\trabajo final backend\\apitorneo\\controllers\\torneocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4F65B915-6A5D-4ADF-A6EB-1EABF84E9587}|APITorneo\\APITorneo.csproj|solutionrelative:apitorneo\\controllers\\torneocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F65B915-6A5D-4ADF-A6EB-1EABF84E9587}|APITorneo\\APITorneo.csproj|c:\\users\\vzucc\\bootcamp extrados\\trabajo final backend\\apitorneo\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{4F65B915-6A5D-4ADF-A6EB-1EABF84E9587}|APITorneo\\APITorneo.csproj|solutionrelative:apitorneo\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|c:\\users\\vzucc\\coder\\bootcamp extrados\\trabajo final backend\\dao\u0026entidades\\dao\\daocartas\\daocartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|solutionrelative:dao\u0026entidades\\dao\\daocartas\\daocartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|c:\\users\\vzucc\\coder\\bootcamp extrados\\trabajo final backend\\dao\u0026entidades\\dao\\daocartas\\idaocartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|solutionrelative:dao\u0026entidades\\dao\\daocartas\\idaocartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|c:\\users\\vzucc\\coder\\bootcamp extrados\\trabajo final backend\\dao\u0026entidades\\entidades\\serie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|solutionrelative:dao\u0026entidades\\entidades\\serie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|c:\\users\\vzucc\\coder\\bootcamp extrados\\trabajo final backend\\dao\u0026entidades\\entidades\\carta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78DC080A-AB41-497F-9B2F-EDA746561CE8}|DAO\u0026Entidades\\DAO\u0026Entidades.csproj|solutionrelative:dao\u0026entidades\\entidades\\carta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,43 +30,74 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\vzucc\\bootcamp extrados\\Trabajo final backend\\APITorneo\\appsettings.json",
-              "RelativeDocumentMoniker": "APITorneo\\appsettings.json",
-              "ToolTip": "C:\\Users\\vzucc\\bootcamp extrados\\Trabajo final backend\\APITorneo\\appsettings.json",
-              "RelativeToolTip": "APITorneo\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABrAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-26T23:20:26.168Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TorneoController.cs",
-              "DocumentMoniker": "C:\\Users\\vzucc\\bootcamp extrados\\Trabajo final backend\\APITorneo\\Controllers\\TorneoController.cs",
-              "RelativeDocumentMoniker": "APITorneo\\Controllers\\TorneoController.cs",
-              "ToolTip": "C:\\Users\\vzucc\\bootcamp extrados\\Trabajo final backend\\APITorneo\\Controllers\\TorneoController.cs",
-              "RelativeToolTip": "APITorneo\\Controllers\\TorneoController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "Serie.cs",
+              "DocumentMoniker": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\Entidades\\Serie.cs",
+              "RelativeDocumentMoniker": "DAO\u0026Entidades\\Entidades\\Serie.cs",
+              "ToolTip": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\Entidades\\Serie.cs",
+              "RelativeToolTip": "DAO\u0026Entidades\\Entidades\\Serie.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-26T20:52:56.159Z"
+              "WhenOpened": "2025-01-09T21:39:56.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Carta.cs",
+              "DocumentMoniker": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\Entidades\\Carta.cs",
+              "RelativeDocumentMoniker": "DAO\u0026Entidades\\Entidades\\Carta.cs",
+              "ToolTip": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\Entidades\\Carta.cs",
+              "RelativeToolTip": "DAO\u0026Entidades\\Entidades\\Carta.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-09T11:53:36.314Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TorneoController.cs",
+              "DocumentMoniker": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\APITorneo\\Controllers\\TorneoController.cs",
+              "RelativeDocumentMoniker": "APITorneo\\Controllers\\TorneoController.cs",
+              "ToolTip": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\APITorneo\\Controllers\\TorneoController.cs",
+              "RelativeToolTip": "APITorneo\\Controllers\\TorneoController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBUAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-26T20:52:56.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "DAOCartas.cs",
-              "DocumentMoniker": "C:\\Users\\vzucc\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\DAO\\DAOCartas\\DAOCartas.cs",
+              "DocumentMoniker": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\DAO\\DAOCartas\\DAOCartas.cs",
               "RelativeDocumentMoniker": "DAO\u0026Entidades\\DAO\\DAOCartas\\DAOCartas.cs",
-              "ToolTip": "C:\\Users\\vzucc\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\DAO\\DAOCartas\\DAOCartas.cs",
+              "ToolTip": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\DAO\\DAOCartas\\DAOCartas.cs",
               "RelativeToolTip": "DAO\u0026Entidades\\DAO\\DAOCartas\\DAOCartas.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwAoAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwA4AAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-26T23:02:22.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IDAOCartas.cs",
+              "DocumentMoniker": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\DAO\\DAOCartas\\IDAOCartas.cs",
+              "RelativeDocumentMoniker": "DAO\u0026Entidades\\DAO\\DAOCartas\\IDAOCartas.cs",
+              "ToolTip": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO\u0026Entidades\\DAO\\DAOCartas\\IDAOCartas.cs",
+              "RelativeToolTip": "DAO\u0026Entidades\\DAO\\DAOCartas\\IDAOCartas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-09T11:41:44.986Z",
               "EditorCaption": ""
             }
           ]

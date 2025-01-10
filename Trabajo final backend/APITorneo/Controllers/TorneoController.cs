@@ -17,18 +17,47 @@ namespace APITorneo.Controllers
         }
 
         [HttpGet("cartas/{id}")]
-        public async Task<IActionResult> GetCarta(int id)
+        public async Task<IActionResult> GetCarta(string id)
         {
-            Console.WriteLine("en el endpoint");
-            var carta = await _db.GetCartaAsync(id);
-            return Ok(carta);
+            if (int.TryParse(id, out int value))
+            {
+                var carta = await _db.GetCartaByIdAsync(value);
+                return Ok(carta);
+            }
+            else
+            {
+                var carta = await _db.GetCartaByNameAsync(id);
+                return Ok(carta);
+            }
         }
 
-        [HttpGet("generacion/{id}")]
-        public async Task<IActionResult> GetGeneracion(int id)
+        [HttpGet("series")]
+        public async Task<IActionResult> GetSeries()
         {
-            var gen = await _db.GetGeneracionAsync(id);
-            return Ok(gen);
+            var series = await _db.GetSeriesAsync();
+            return Ok(series);
         }
+
+        [HttpGet("series/{id}")]
+        public async Task<IActionResult> GetSerie(string id)
+        {
+            if(int.TryParse(id, out int value))
+            {
+                var serie = await _db.GetSerieByIdAsync(value);
+                return Ok(serie);
+            } else
+            {
+                var serie = await _db.GetSerieByNameAsync(id);
+                return Ok(serie);
+            }
+        }
+
+        [HttpGet("series/{id}/cartas")]
+        public async Task<IActionResult> GetCartasDeSerie(int id)
+        {
+            var serie = await _db.GetSerieCardsAsync(id);
+            return Ok(serie);
+        }
+
     }
 }

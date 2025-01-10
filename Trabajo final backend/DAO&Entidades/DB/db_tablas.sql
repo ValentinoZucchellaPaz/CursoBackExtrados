@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS torneo_cartas;
+tarea5DROP DATABASE IF EXISTS torneo_cartas;
 CREATE DATABASE torneo_cartas;
 USE torneo_cartas;
 
@@ -37,21 +37,26 @@ CREATE TABLE Mazos(
 	id_usuario INT NOT NULL,
 	
 	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
-)
+);
 
-CREATE TABLE CartasPorMazo (
-	id INT PRIMARY KEY AUTO_INCREMENT,
+DROP TABLE if EXISTS cartaspormazo;
+CREATE TABLE cartas_por_mazo (
 	id_carta INT NOT NULL,
 	id_mazo INT NOT NULL,
 	
 	FOREIGN KEY (id_carta) REFERENCES cartas(id),
 	FOREIGN KEY (id_mazo) REFERENCES  mazos(id),
-	UNIQUE(id_mazo, id_carta) -- no se puede tener cartas duplicadas en los mazos
-)
+	PRIMARY KEY(id_mazo, id_carta) -- no se puede tener cartas duplicadas en los mazos
+);
 
 SELECT * FROM cartas;
 SELECT * FROM series;
 SELECT * FROM cartas_por_serie;
+
+select * from cartas where id in (select id_carta from cartas_por_serie where id_serie=2);
+
+SELECT * FROM cartas c WHERE
+	c.id NOT IN (SELECT cps.id_carta FROM cartas_por_serie cps); -- comprobar que no quedan cartas sin serie
 
 
 -- USUARIOS Y ROLES: jugador, juez, organizador, administrador
@@ -69,8 +74,8 @@ CREATE TABLE Usuarios (
 	
 	FOREIGN KEY (id_creador) REFERENCES usuarios(id)
 );
-INSERT INTO Usuarios (nombre, apellido, alias, email, pais, rol, foto_avatar, id_creador)
-VALUES ('Admin', 'Inicial', 'admin1', 'admin1@example.com', 'Argentina', 'Administrador', NULL, NULL);
+-- INSERT INTO Usuarios (nombre, apellido, alias, email, pais, rol, foto_avatar, id_creador)
+-- VALUES ('Admin', 'Inicial', 'admin1', 'admin1@example.com', 'Argentina', 'Administrador', NULL, NULL);
 
 
 -- TORNEOS Y JUEGOS
@@ -83,7 +88,7 @@ CREATE TABLE Torneos (
 	id_ganador INT, -- solo hay ganador cuando fase='finalizado'
 	id_organizador INT NOT NULL,
 	
-	FOREIGN KEY (id_organizador) REFERENCES usuarios(id)
+	FOREIGN KEY (id_organizador) REFERENCES usuarios(id),
 	FOREIGN KEY (id_ganador) REFERENCES usuarios(id)
 );
 
@@ -93,8 +98,9 @@ CREATE TABLE series_torneos ( -- relaciona las series disponibles para los torne
 	id_torneo INT NOT NULL,
 	
 	FOREIGN KEY (id_torneo) REFERENCES torneos(id)
-)
+);
 
+DROP TABLE if EXISTS juegos;
 CREATE TABLE Juegos(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	fecha_inicio DATETIME NOT NULL,
@@ -105,40 +111,51 @@ CREATE TABLE Juegos(
 	id_jugador_a INT NOT NULL,
 	id_jugador_b INT NOT NULL,
 	id_ganador INT NOT NULL,
-	id_descalificado INT NULL,
-	razon_descalificado VARCHAR(100) NULL,
 	
 	FOREIGN KEY (id_torneo) REFERENCES torneos(id),
-	FOREIGN KEY (id_ganador, id_jugador_a, id_jugador_b, id_descalificado) REFERENCES jugadores(id_usuario)
+	FOREIGN KEY (id_ganador) REFERENCES usuarios(id),
+	FOREIGN KEY (id_jugador_a) REFERENCES usuarios(id),
+	FOREIGN KEY (id_jugador_b) REFERENCES usuarios(id),
+	FOREIGN KEY (id_juez) REFERENCES usuarios(id)
 );
 
+CREATE TABLE descalificaciones(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	id_usuario INT NOT NULL,
+	id_juego INT NOT NULL,
+	razon VARCHAR(150) NOT NULL,
+
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+	FOREIGN KEY (id_juego) REFERENCES juegos(id)
+)
+
 CREATE TABLE inscripcion_jugadores(
-	id PRIMARY KEY AUTO_INCREMENT,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_jugador INT NOT NULL,
 	id_torneo INT NOT NULL,
 	id_mazo INT NOT NULL,
 	
-	FOREIGN KEY (id_jugador) REFERENCES jugadores(id_usuario),
+	FOREIGN KEY (id_jugador) REFERENCES usuarios(id),
 	FOREIGN KEY (id_torneo) REFERENCES torneos(id),
 	FOREIGN KEY (id_mazo) REFERENCES mazos(id)
 );
 
 CREATE TABLE inscripcion_jugadores_aceptados(
-	id PRIMARY KEY AUTO_INCREMENT,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_jugador INT NOT NULL,
 	id_torneo INT NOT NULL,
 	id_mazo INT NOT NULL,
 	
-	FOREIGN KEY (id_jugador) REFERENCES jugadores(id_usuario),
+	FOREIGN KEY (id_jugador) REFERENCES usuarios(id),
 	FOREIGN KEY (id_torneo) REFERENCES torneos(id),
 	FOREIGN KEY (id_mazo) REFERENCES mazos(id)
-)
+);
 
 CREATE TABLE jueces_oficializadores(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_juez INT NOT NULL,
 	id_torneo INT NOT NULL,
 	
-	FOREIGN KEY (id_juez) REFERENCES jueces(id_usuario),
 	FOREIGN KEY (id_torneo) REFERENCES torneos(id),
-)
+	FOREIGN KEY (id_juez) REFERENCES usuarios(id)
+);
