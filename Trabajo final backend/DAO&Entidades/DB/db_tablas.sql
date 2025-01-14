@@ -159,3 +159,16 @@ CREATE TABLE jueces_oficializadores(
 	FOREIGN KEY (id_torneo) REFERENCES torneos(id),
 	FOREIGN KEY (id_juez) REFERENCES usuarios(id)
 );
+
+
+DROP TABLE if EXISTS paises;
+CREATE TABLE paises (
+	codigo VARCHAR(5) NOT NULL,
+	nombre VARCHAR(100) NOT NULL,
+	utc_offset VARCHAR(15) NOT NULL,
+	
+	PRIMARY KEY (nombre, utc_offset)
+);
+
+
+SELECT * FROM paises;

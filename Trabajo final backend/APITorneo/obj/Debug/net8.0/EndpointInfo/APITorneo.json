@@ -5,10 +5,10 @@
     "version": "1.0"
   },
   "paths": {
-    "/Torneo/cartas": {
+    "/Cartas": {
       "get": {
         "tags": [
-          "Torneo"
+          "Cartas"
         ],
         "responses": {
           "200": {
@@ -17,10 +17,10 @@
         }
       }
     },
-    "/Torneo/cartas/{id}": {
+    "/Cartas/{id}": {
       "get": {
         "tags": [
-          "Torneo"
+          "Cartas"
         ],
         "parameters": [
           {
@@ -39,10 +39,10 @@
         }
       }
     },
-    "/Torneo/series": {
+    "/Cartas/series": {
       "get": {
         "tags": [
-          "Torneo"
+          "Cartas"
         ],
         "responses": {
           "200": {
@@ -51,10 +51,10 @@
         }
       }
     },
-    "/Torneo/series/{id}": {
+    "/Cartas/series/{id}": {
       "get": {
         "tags": [
-          "Torneo"
+          "Cartas"
         ],
         "parameters": [
           {
@@ -73,10 +73,10 @@
         }
       }
     },
-    "/Torneo/series/{id}/cartas": {
+    "/Cartas/series/{id}/all": {
       "get": {
         "tags": [
-          "Torneo"
+          "Cartas"
         ],
         "parameters": [
           {

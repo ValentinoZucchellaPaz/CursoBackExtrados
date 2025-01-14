@@ -69,7 +69,7 @@ namespace DAO_Entidades.DAO.DAOCartas
         }
         public async Task<IEnumerable<Carta>> GetSerieCardsAsync(int id_serie)
         {
-            var queryGetSerieCards = "select * from cartas where id in (select id_carta from cartas_por_serie where id_serie=@id)";
+            var queryGetSerieCards = "select * from cartas where id in (select id_carta from cartas_por_serie where id_serie=@id_serie)";
             using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();

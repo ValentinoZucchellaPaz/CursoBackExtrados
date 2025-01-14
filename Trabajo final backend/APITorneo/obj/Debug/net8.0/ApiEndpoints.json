@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "ContainingType": "APITorneo.Controllers.CartasController",
     "Method": "GetCartas",
-    "RelativePath": "Torneo/cartas",
+    "RelativePath": "Cartas",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -10,9 +10,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "ContainingType": "APITorneo.Controllers.CartasController",
     "Method": "GetCarta",
-    "RelativePath": "Torneo/cartas/{id}",
+    "RelativePath": "Cartas/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -26,9 +26,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "ContainingType": "APITorneo.Controllers.CartasController",
     "Method": "GetSeries",
-    "RelativePath": "Torneo/series",
+    "RelativePath": "Cartas/series",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -36,9 +36,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "ContainingType": "APITorneo.Controllers.CartasController",
     "Method": "GetSerie",
-    "RelativePath": "Torneo/series/{id}",
+    "RelativePath": "Cartas/series/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -52,9 +52,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "ContainingType": "APITorneo.Controllers.CartasController",
     "Method": "GetCartasDeSerie",
-    "RelativePath": "Torneo/series/{id}/cartas",
+    "RelativePath": "Cartas/series/{id}/all",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
