@@ -2,9 +2,24 @@ tarea5DROP DATABASE IF EXISTS torneo_cartas;
 CREATE DATABASE torneo_cartas;
 USE torneo_cartas;
 
+DROP TABLE if EXISTS inscripcion_jugadores;
+DROP TABLE if EXISTS inscripcion_jugadores_aceptados;
+DROP TABLE if EXISTS descalificaciones;
+DROP TABLE if EXISTS jueces_oficializadores;
+DROP TABLE if EXISTS series_torneos;
+DROP TABLE if EXISTS juegos;
+DROP TABLE if EXISTS torneos;
+DROP TABLE if EXISTS cartas_por_mazo;
+DROP TABLE if EXISTS mazos;
+DROP TABLE if EXISTS usuarios;
+
 DROP TABLE if EXISTS cartas_por_serie;
 DROP TABLE if EXISTS cartas;
 DROP TABLE if EXISTS series;
+
+DROP TABLE if EXISTS paises;
+
+
 
 -- CARTAS Y SERIES
 CREATE TABLE Cartas (
@@ -30,31 +45,12 @@ CREATE TABLE cartas_por_serie (
 	FOREIGN KEY (id_serie) REFERENCES series(id)
 );
 
-
--- MAZOS
-CREATE TABLE Mazos(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	id_usuario INT NOT NULL,
-	
-	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
-);
-
-DROP TABLE if EXISTS cartaspormazo;
-CREATE TABLE cartas_por_mazo (
-	id_carta INT NOT NULL,
-	id_mazo INT NOT NULL,
-	
-	FOREIGN KEY (id_carta) REFERENCES cartas(id),
-	FOREIGN KEY (id_mazo) REFERENCES  mazos(id),
-	PRIMARY KEY(id_mazo, id_carta) -- no se puede tener cartas duplicadas en los mazos
-);
-
 -- USUARIOS Y ROLES: jugador, juez, organizador, administrador
 CREATE TABLE Usuarios (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	nombre VARCHAR(100) NOT NULL,
 	pais VARCHAR(50) NOT NULL,
-	email VARCHAR(100) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL,
 	contraseña CHAR(128) NOT NULL,
 	salt CHAR(128) NOT NULL,
 	role ENUM('admin', 'jugador', 'juez', 'organizador') NOT NULL,
@@ -90,7 +86,6 @@ CREATE TABLE series_torneos ( -- relaciona las series disponibles para los torne
 	FOREIGN KEY (id_torneo) REFERENCES torneos(id)
 );
 
-DROP TABLE if EXISTS juegos;
 CREATE TABLE Juegos(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	fecha_inicio DATETIME NOT NULL,
@@ -117,7 +112,7 @@ CREATE TABLE descalificaciones(
 
 	FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
 	FOREIGN KEY (id_juego) REFERENCES juegos(id)
-)
+);
 
 CREATE TABLE inscripcion_jugadores(
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -151,13 +146,29 @@ CREATE TABLE jueces_oficializadores(
 );
 
 
-DROP TABLE if EXISTS paises;
 CREATE TABLE paises (
 	codigo VARCHAR(5) NOT NULL,
 	nombre VARCHAR(100) NOT NULL,
 	utc_offset VARCHAR(15) NOT NULL,
 	
 	PRIMARY KEY (nombre, utc_offset)
+);
+
+-- MAZOS
+CREATE TABLE Mazos(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	id_usuario INT NOT NULL,
+	
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+);
+
+CREATE TABLE cartas_por_mazo (
+	id_carta INT NOT NULL,
+	id_mazo INT NOT NULL,
+	
+	FOREIGN KEY (id_carta) REFERENCES cartas(id),
+	FOREIGN KEY (id_mazo) REFERENCES  mazos(id),
+	PRIMARY KEY(id_mazo, id_carta) -- no se puede tener cartas duplicadas en los mazos
 );
 
 SELECT * FROM cartas;

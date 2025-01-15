@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "APITorneo.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Models.DTO.DTOLogin",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.AuthController",
+    "Method": "CreateUser",
+    "RelativePath": "Auth/sign-up",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Models.DTO.DTOSignUp",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "APITorneo.Controllers.CartasController",
     "Method": "GetCartas",
     "RelativePath": "Cartas",

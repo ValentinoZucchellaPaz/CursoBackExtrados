@@ -89,3 +89,13 @@ C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug
 C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Data Access.pdb
 C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Models.pdb
 C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Services.pdb
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\vzucc\coder\bootcamp extrados\Trabajo final backend\APITorneo\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

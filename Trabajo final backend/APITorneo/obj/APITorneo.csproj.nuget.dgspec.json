@@ -63,6 +63,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.12, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
@@ -327,7 +331,17 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Configuration\\Configuration.csproj": {
+                "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Configuration\\Configuration.csproj"
+              },
+              "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Data Access\\Data Access.csproj": {
+                "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Data Access\\Data Access.csproj"
+              },
+              "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Models\\Models.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -345,6 +359,20 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[7.1.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.1.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

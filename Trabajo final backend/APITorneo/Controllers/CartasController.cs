@@ -1,6 +1,5 @@
 using Data_Access.DAOCartas;
 using Microsoft.AspNetCore.Mvc;
-using Models.Entidades;
 
 namespace APITorneo.Controllers
 {
