@@ -8,7 +8,9 @@
     ".NETCoreApp,Version=v8.0": {
       "APITorneo/1.0.0": {
         "dependencies": {
-          "DAO&Entidades": "1.0.0",
+          "Configuration": "1.0.0",
+          "Models": "1.0.0",
+          "Services": "1.0.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "runtime": {
@@ -101,13 +103,38 @@
           }
         }
       },
-      "DAO&Entidades/1.0.0": {
+      "Configuration/1.0.0": {
+        "runtime": {
+          "Configuration.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Data Access/1.0.0": {
         "dependencies": {
           "Dapper": "2.1.35",
+          "Models": "1.0.0",
           "MySqlConnector": "2.4.0"
         },
         "runtime": {
-          "DAO&Entidades.dll": {
+          "Data Access.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Models/1.0.0": {
+        "runtime": {
+          "Models.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Services/1.0.0": {
+        "runtime": {
+          "Services.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -191,7 +218,22 @@
       "path": "swashbuckle.aspnetcore.swaggerui/6.6.2",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512"
     },
-    "DAO&Entidades/1.0.0": {
+    "Configuration/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Data Access/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

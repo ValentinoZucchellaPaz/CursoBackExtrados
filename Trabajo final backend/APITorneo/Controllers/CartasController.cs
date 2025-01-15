@@ -1,5 +1,6 @@
-using DAO_Entidades.DAO.DAOCartas;
+using Data_Access.DAOCartas;
 using Microsoft.AspNetCore.Mvc;
+using Models.Entidades;
 
 namespace APITorneo.Controllers
 {
@@ -23,11 +24,19 @@ namespace APITorneo.Controllers
             if (int.TryParse(id, out int value))
             {
                 var carta = await _db.GetCartaByIdAsync(value);
+                if (carta == null)
+                {
+                    return BadRequest("No hay ninguna serie con ese nombre");
+                }
                 return Ok(carta);
             }
             else
             {
                 var carta = await _db.GetCartaByNameAsync(id);
+                if (carta == null)
+                {
+                    return BadRequest("No hay ninguna serie con ese nombre");
+                }
                 return Ok(carta);
             }
         }
@@ -45,19 +54,41 @@ namespace APITorneo.Controllers
             if(int.TryParse(id, out int value))
             {
                 var serie = await _db.GetSerieByIdAsync(value);
+                if (serie == null)
+                {
+                    return BadRequest("No hay ninguna serie con ese nombre");
+                }
                 return Ok(serie);
             } else
             {
                 var serie = await _db.GetSerieByNameAsync(id);
+                if (serie == null)
+                {
+                    return BadRequest("No hay ninguna serie con ese nombre");
+                }
                 return Ok(serie);
             }
         }
 
         [HttpGet("series/{id}/all")]
-        public async Task<IActionResult> GetCartasDeSerie(int id)
+        public async Task<IActionResult> GetCartasDeSerie(string id)
         {
-            var serie = await _db.GetSerieCardsAsync(id);
-            return Ok(serie);
+            if(int.TryParse(id, out int value))
+            {
+                var serie_cards = await _db.GetSerieCardsAsync(value);
+                return Ok(serie_cards);
+            }
+            else
+            {
+                var serie = await _db.GetSerieByNameAsync(id);
+                if(serie == null)
+                {
+                    return BadRequest("No hay ninguna serie con ese nombre");
+                }
+                var serie_card = await _db.GetSerieCardsAsync(serie.Id);
+                return Ok(serie_card);
+            }
+
         }
 
     }

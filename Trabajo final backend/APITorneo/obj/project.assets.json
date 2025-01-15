@@ -154,18 +154,49 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "DAO&Entidades/1.0.0": {
+      "Configuration/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Configuration.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Configuration.dll": {}
+        }
+      },
+      "Data Access/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Dapper": "2.1.35",
+          "Models": "1.0.0",
           "MySqlConnector": "2.4.0"
         },
         "compile": {
-          "bin/placeholder/DAO&Entidades.dll": {}
+          "bin/placeholder/Data Access.dll": {}
         },
         "runtime": {
-          "bin/placeholder/DAO&Entidades.dll": {}
+          "bin/placeholder/Data Access.dll": {}
+        }
+      },
+      "Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Models.dll": {}
+        }
+      },
+      "Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Services.dll": {}
         }
       }
     }
@@ -674,15 +705,33 @@
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
     },
-    "DAO&Entidades/1.0.0": {
+    "Configuration/1.0.0": {
       "type": "project",
-      "path": "../DAO&Entidades/DAO&Entidades.csproj",
-      "msbuildProject": "../DAO&Entidades/DAO&Entidades.csproj"
+      "path": "../Configuration/Configuration.csproj",
+      "msbuildProject": "../Configuration/Configuration.csproj"
+    },
+    "Data Access/1.0.0": {
+      "type": "project",
+      "path": "../Data Access/Data Access.csproj",
+      "msbuildProject": "../Data Access/Data Access.csproj"
+    },
+    "Models/1.0.0": {
+      "type": "project",
+      "path": "../Models/Models.csproj",
+      "msbuildProject": "../Models/Models.csproj"
+    },
+    "Services/1.0.0": {
+      "type": "project",
+      "path": "../Services/Services.csproj",
+      "msbuildProject": "../Services/Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "DAO&Entidades >= 1.0.0",
+      "Configuration >= 1.0.0",
+      "Data Access >= 1.0.0",
+      "Models >= 1.0.0",
+      "Services >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -718,8 +767,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj": {
-              "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\DAO&Entidades\\DAO&Entidades.csproj"
+            "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Configuration\\Configuration.csproj": {
+              "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Configuration\\Configuration.csproj"
+            },
+            "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Data Access\\Data Access.csproj": {
+              "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Data Access\\Data Access.csproj"
+            },
+            "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Models\\Models.csproj"
+            },
+            "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Services\\Services.csproj": {
+              "projectPath": "C:\\Users\\vzucc\\coder\\bootcamp extrados\\Trabajo final backend\\Services\\Services.csproj"
             }
           }
         }

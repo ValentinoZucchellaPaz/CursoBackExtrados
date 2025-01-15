@@ -1,4 +1,6 @@
-using DAO_Entidades.DAO.DAOCartas;
+using APITorneo.Middleware;
+using Configuration;
+using Data_Access.DAOCartas;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ---------CONFIG----------
+
+//  AUTH
+
+// CORS
+
+// DI - DAOS
 builder.Services.AddSingleton<IDAOCartas>(new DAOCartas(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// DI - SERVICES
+
+// OPTIONS
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("Jwt"));
+
+
+// ---------CONFIG----------
 
 var app = builder.Build();
 
@@ -20,7 +37,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//app.UseCors();
+//app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlerMiddleware>(); //custom middleware
 
 app.MapControllers();
 
