@@ -67,6 +67,54 @@
         }
       }
     },
+    "/Auth/borrar-usuario": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Auth/crear-admin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Auth/crear-organizador": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Auth/crear-juez": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Cartas": {
       "get": {
         "tags": [
@@ -149,6 +197,66 @@
               "type": "string"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Torneo": {
+      "get": {
+        "tags": [
+          "Torneo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Torneo/inscribir-jugador": {
+      "post": {
+        "tags": [
+          "Torneo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Torneo/aceptar-jugador": {
+      "post": {
+        "tags": [
+          "Torneo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Torneo/iniciar-torneo": {
+      "post": {
+        "tags": [
+          "Torneo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Torneo/editar-torneo": {
+      "post": {
+        "tags": [
+          "Torneo"
         ],
         "responses": {
           "200": {

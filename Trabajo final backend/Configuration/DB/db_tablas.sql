@@ -45,6 +45,13 @@ CREATE TABLE cartas_por_serie (
 	FOREIGN KEY (id_serie) REFERENCES series(id)
 );
 
+
+
+CREATE TABLE paises (
+	codigo VARCHAR(5) NOT NULL,
+	nombre VARCHAR(100) PRIMARY KEY NOT NULL,
+);
+
 -- USUARIOS Y ROLES: jugador, juez, organizador, administrador
 CREATE TABLE Usuarios (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,6 +64,7 @@ CREATE TABLE Usuarios (
 	id_creador INT NULL,
 	alias VARCHAR(50) UNIQUE NULL,
 	avatar VARCHAR(100) NULL,
+	activo BOOLEAN NOT NULL,
 	
 	FOREIGN KEY (id_creador) REFERENCES usuarios(id)
 );
@@ -146,16 +154,8 @@ CREATE TABLE jueces_oficializadores(
 );
 
 
-CREATE TABLE paises (
-	codigo VARCHAR(5) NOT NULL,
-	nombre VARCHAR(100) NOT NULL,
-	utc_offset VARCHAR(15) NOT NULL,
-	
-	PRIMARY KEY (nombre, utc_offset)
-);
-
 -- MAZOS
-CREATE TABLE Mazos(
+CREATE TABLE Mazos (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	id_usuario INT NOT NULL,
 	
@@ -174,9 +174,10 @@ CREATE TABLE cartas_por_mazo (
 SELECT * FROM cartas;
 SELECT * FROM series;
 SELECT * FROM cartas_por_serie;
-
 select * from cartas where id in (select id_carta from cartas_por_serie where id_serie=2);
-
 SELECT * FROM cartas c WHERE
 	c.id NOT IN (SELECT cps.id_carta FROM cartas_por_serie cps); -- comprobar que no quedan cartas sin serie
 SELECT * FROM paises;
+
+
+SELECT * FROM usuarios;

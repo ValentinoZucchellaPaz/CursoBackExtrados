@@ -1,6 +1,46 @@
 [
   {
     "ContainingType": "APITorneo.Controllers.AuthController",
+    "Method": "BorrarUsuario",
+    "RelativePath": "Auth/borrar-usuario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.AuthController",
+    "Method": "CrearAdmin",
+    "RelativePath": "Auth/crear-admin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.AuthController",
+    "Method": "CrearJuez",
+    "RelativePath": "Auth/crear-juez",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.AuthController",
+    "Method": "CrearOrganizador",
+    "RelativePath": "Auth/crear-organizador",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "Auth/login",
     "HttpMethod": "POST",
@@ -97,6 +137,56 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "Method": "ObtenerTodosTorneos",
+    "RelativePath": "Torneo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "Method": "AceptarInscripcion",
+    "RelativePath": "Torneo/aceptar-jugador",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "Method": "EditarTorneo",
+    "RelativePath": "Torneo/editar-torneo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "Method": "IniciarTorneo",
+    "RelativePath": "Torneo/iniciar-torneo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APITorneo.Controllers.TorneoController",
+    "Method": "InscribirJugador",
+    "RelativePath": "Torneo/inscribir-jugador",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

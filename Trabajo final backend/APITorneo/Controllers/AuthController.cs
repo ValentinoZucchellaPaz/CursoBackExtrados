@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTO;
 using Services.AuthService;
@@ -6,7 +7,7 @@ using Services.UsuarioService;
 
 namespace APITorneo.Controllers
 {
-    [ApiController]
+    [ApiController] //preguntar a simon si auth debe validar solo usuarios y trabajar admins,orgs en db
     [Route("[controller]")]
     public class AuthController(IUsuarioService user_service, IAuthService auth_service) : Controller
     {
@@ -42,11 +43,40 @@ namespace APITorneo.Controllers
             });
         }
 
-        [HttpPost("sign-up")]
+        [HttpPost("sign-up")] //solo se pueden crear jugadores?? O se deberia poder crear jueces, org, admins desde otro endpoint??
         public async Task<IActionResult> CreateUser(DTOSignUp request)
         {
+            // si solo voy a crear jugadores debo cambiar dtosignup para hacer que algunso campos sean obligatorios
             var res = await _userService.CrearUsuario(request);
             return Ok(res);
+        }
+
+        [HttpPost("borrar-usuario")]
+        [Authorize(Roles = "admin")]
+        public IActionResult BorrarUsuario()
+        {
+            return Ok("estamos joya");
+        }
+
+        [HttpPost("crear-admin")] //se debe poder crear uno desde 0 o actualizar otros ya existentes?? por ahora de la primera forma
+        [Authorize(Roles = "admin")]
+        public IActionResult CrearAdmin()
+        {
+            return View();
+        }
+
+        [HttpPost("crear-organizador")]
+        [Authorize(Roles = "admin")]
+        public IActionResult CrearOrganizador()
+        {
+            return View();
+        }
+
+        [HttpPost("crear-juez")]
+        [Authorize(Roles = "organizador, admin")]
+        public IActionResult CrearJuez()
+        {
+            return View();
         }
     }
 }

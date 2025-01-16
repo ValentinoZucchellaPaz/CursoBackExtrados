@@ -1,23 +1,24 @@
 using Data_Access.DAOCartas;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APITorneo.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CartasController(IDAOCartas db) : Controller
+    public class InfoController(IDAOCartas db) : Controller
     {
 
         private readonly IDAOCartas _db = db;
 
-        [HttpGet("")]
+        [HttpGet("cartas")]
         public async Task<IActionResult> GetCartas()
         {
             var cartas = await _db.GetCartasAsync();
             return Ok(cartas);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("cartas/{id}")]
         public async Task<IActionResult> GetCarta(string id)
         {
             if (int.TryParse(id, out int value))
@@ -69,7 +70,7 @@ namespace APITorneo.Controllers
             }
         }
 
-        [HttpGet("series/{id}/all")]
+        [HttpGet("series/{id}/cartas")]
         public async Task<IActionResult> GetCartasDeSerie(string id)
         {
             if(int.TryParse(id, out int value))
@@ -89,6 +90,29 @@ namespace APITorneo.Controllers
             }
 
         }
+
+
+        // INFO DE TORNEOS
+        [HttpGet("torneos")]
+
+        [HttpGet("torneos/{id}")] // devuelve TODO sobre el torneo (series, cartas, juegos, jugadores inscriptos, jueces)
+
+
+
+
+        // INFO DE USUARIOS: debo hacer que se puedan buscar 
+        [HttpGet("usuarios/jugadores")] //solo mostrar alias
+
+        [HttpGet("usuarios/jueces")] // solo mostrar alias
+        [Authorize(Roles = "juez, organizador, admin")]
+
+        [HttpGet("usuarios/organizadores")]
+        [Authorize(Roles = "organizador, admin")]
+
+        [HttpGet("usuarios/admins")]
+        [Authorize(Roles = "admin")]
+
+
 
     }
 }

@@ -15,7 +15,7 @@ def main():
     # Obtener la fecha base para calcular UTC offset
     base_date = datetime(2025, 1, 1)
 
-    # Diccionario para evitar duplicados: { (country_name, utc_offset): True }
+    # Diccionario para evitar duplicados: { (country_name+offset): True }
     seen_offsets = {}
 
     # Recorrer los husos horarios y países
@@ -29,19 +29,19 @@ def main():
             utc_offset = timezone.utcoffset(base_date)  # Devuelve un timedelta
             hours, remainder = divmod(utc_offset.total_seconds(), 3600)
             minutes = remainder // 60
-            utc_offset_str = f"UTC{int(hours):+03}:{int(minutes):02}"
+            utc_offset_str = f"{int(hours):+03}:{int(minutes):02}"
 
             # Concatenar nombre del país con el offset
 
             # Evitar duplicados: solo guardamos si no se ha visto antes
-            if (country_name, utc_offset_str) not in seen_offsets:
-                seen_offsets[(country_name, utc_offset_str)] = True
+            if (country_name+utc_offset_str) not in seen_offsets:
+                seen_offsets[(country_name+utc_offset_str)] = True
 
                 # Insertar en la base de datos
                 cursor.execute("""
-                    INSERT INTO paises (codigo, nombre, utc_offset)
-                    VALUES (%s, %s, %s);
-                """, (country_code, country_name, utc_offset_str))
+                    INSERT INTO paises (codigo, nombre)
+                    VALUES (%s, %s);
+                """, (country_code, country_name+utc_offset_str))
 
     # mandar transaccion y cerrar conexion
     connection.commit()
